@@ -1,0 +1,703 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java Google API Tool," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="​      Guava 是一个 Google 的基于java1.6的类库集合的扩展项目，包括 collections, caching, primitives support, concurrency libraries, common annotations, string processing, I/O, 等等. 这些高质量的 API 可以使Java代码更加优雅，更加简洁，让你工作更加轻松愉">
+<meta name="keywords" content="Java Google API Tool">
+<meta property="og:type" content="article">
+<meta property="og:title" content="guava初探">
+<meta property="og:url" content="http://yoursite.com/2017/06/04/guava初探/index.html">
+<meta property="og:site_name" content="Andy&#39;s Blob">
+<meta property="og:description" content="​      Guava 是一个 Google 的基于java1.6的类库集合的扩展项目，包括 collections, caching, primitives support, concurrency libraries, common annotations, string processing, I/O, 等等. 这些高质量的 API 可以使Java代码更加优雅，更加简洁，让你工作更加轻松愉">
+<meta property="og:updated_time" content="2017-06-04T09:19:48.732Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="guava初探">
+<meta name="twitter:description" content="​      Guava 是一个 Google 的基于java1.6的类库集合的扩展项目，包括 collections, caching, primitives support, concurrency libraries, common annotations, string processing, I/O, 等等. 这些高质量的 API 可以使Java代码更加优雅，更加简洁，让你工作更加轻松愉">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/04/guava初探/"/>
+
+
+
+
+
+  <title>guava初探 | Andy's Blob</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Andy's Blob</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">输不丢人,怕才丢人</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/04/guava初探/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's Blob">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">guava初探</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-04T15:23:14+08:00">
+                2017-06-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>​      Guava 是一个 Google 的基于java1.6的类库集合的扩展项目，包括 collections, caching, primitives support, concurrency libraries, common annotations, string processing, I/O, 等等. 这些高质量的 API 可以使Java代码更加优雅，更加简洁，让你工作更加轻松愉悦。</p>
+<a id="more"></a>
+<h4 id="Ⅰ-常用API汇总"><a href="#Ⅰ-常用API汇总" class="headerlink" title="Ⅰ.常用API汇总"></a>Ⅰ.常用API汇总</h4><h5 id="1-参数预判"><a href="#1-参数预判" class="headerlink" title="1. 参数预判"></a>1. 参数预判</h5><p>​        Guava在Preconditions类中提供了若干前置条件判断的实用方法，语义清晰，减少重复代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//use java</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">testPreconditions</span><span class="params">(<span class="keyword">boolean</span> preCondition, <span class="keyword">int</span>[] array, <span class="keyword">int</span> position)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (!preCondition) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"preCondition not allow!!"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (array == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException(<span class="string">"array is null!!"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (array.length == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"array length is 0!!"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (position &gt; array.length || position &lt; <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ArrayIndexOutOfBoundsException(<span class="string">"position error!!"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//do something...</span></div><div class="line"> &#125;</div><div class="line"></div><div class="line"><span class="comment">//use guava</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">testPreconditions</span><span class="params">(<span class="keyword">boolean</span> preCondition, <span class="keyword">int</span>[] array, <span class="keyword">int</span> position)</span> </span></div><div class="line">    &#123;</div><div class="line">        Preconditions.checkState(preCondition, <span class="string">"preCondition not allow!!"</span>);</div><div class="line">        Preconditions.checkNotNull(array);</div><div class="line">        Preconditions.checkArgument(array.length == <span class="number">0</span>, <span class="string">"array length is 0!!"</span>);</div><div class="line">        Preconditions.checkElementIndex(position, array.length, <span class="string">"position error!"</span>);</div><div class="line">       <span class="comment">//do something...</span></div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h5 id="2-对象方法（Objects）"><a href="#2-对象方法（Objects）" class="headerlink" title="2. 对象方法（Objects）"></a>2. 对象方法（Objects）</h5><pre><code>Guava中Objects类提供了很多和Object类相似方法可供使用
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//use java</span></div><div class="line"> 	test.equals(<span class="string">"test"</span>); <span class="comment">//若test为NULL 则发生空指针异常</span></div><div class="line">	<span class="comment">//use guava</span></div><div class="line"> 	Objects.equal(test, <span class="string">"test"</span>);<span class="comment">//直接比较</span></div><div class="line"><span class="comment">//use guava </span></div><div class="line">Objects.firstNonNull(<span class="keyword">null</span>,<span class="string">"you are null"</span>)<span class="comment">//传入两个参数，返回两个参数中不为空的那个</span></div></pre></td></tr></table></figure>
+<h5 id="3-集合API的使用"><a href="#3-集合API的使用" class="headerlink" title="3. 集合API的使用"></a>3. 集合API的使用</h5><p>​        1）简化集合的创建和初始化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//list operate</span></div><div class="line"><span class="comment">//use java</span></div><div class="line">List&lt;String&gt; list = = <span class="keyword">new</span> ArrayList&lt;String&gt;();</div><div class="line">list.add(<span class="string">"1"</span>);list.add(<span class="string">"2"</span>);</div><div class="line">list.add(<span class="string">"3"</span>);list.add(<span class="string">"4"</span>);</div><div class="line"><span class="comment">//use guava</span></div><div class="line">List&lt;String&gt; list3 = Lists.newArrayList(<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>,<span class="string">"4"</span>);</div><div class="line"><span class="comment">//map operate</span></div><div class="line"><span class="comment">//use java</span></div><div class="line">Map&lt;String, String&gt; map = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</div><div class="line">map.put(<span class="string">"testMap"</span>, <span class="string">"testMap"</span>);</div><div class="line">map.put(<span class="string">"testMap"</span>, <span class="string">"testMap"</span>);</div><div class="line"><span class="comment">//use guava</span></div><div class="line">Map&lt;String, String&gt; g_map = ImmutableMap.of(<span class="string">"testMap"</span>, <span class="string">"testMap"</span>);</div></pre></td></tr></table></figure>
+<p>​    2）新的集合类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">   <span class="comment">//一种key可以重复的map</span></div><div class="line">   Multimap&lt;String, Person&gt; customersByType =ArrayListMultimap.create();</div><div class="line">   customersByType.put(<span class="string">"abc"</span>, <span class="keyword">new</span> Person(<span class="number">1</span>, <span class="number">1</span>, <span class="string">"a"</span>, <span class="string">"46546"</span>, <span class="number">1</span>, <span class="number">20</span>));</div><div class="line">   customersByType.put(<span class="string">"abc"</span>, <span class="keyword">new</span> Person(<span class="number">1</span>, <span class="number">1</span>, <span class="string">"a"</span>, <span class="string">"46546"</span>, <span class="number">1</span>, <span class="number">30</span>));</div><div class="line">   customersByType.put(<span class="string">"abc"</span>, <span class="keyword">new</span> Person(<span class="number">1</span>, <span class="number">1</span>, <span class="string">"a"</span>, <span class="string">"46546"</span>, <span class="number">1</span>, <span class="number">40</span>));</div><div class="line">   customersByType.put(<span class="string">"abc"</span>, <span class="keyword">new</span> Person(<span class="number">1</span>, <span class="number">1</span>, <span class="string">"a"</span>, <span class="string">"46546"</span>, <span class="number">1</span>, <span class="number">50</span>));</div><div class="line">   customersByType.put(<span class="string">"abcd"</span>, <span class="keyword">new</span> Person(<span class="number">1</span>, <span class="number">1</span>, <span class="string">"a"</span>, <span class="string">"46546"</span>, <span class="number">1</span>, <span class="number">50</span>));</div><div class="line">   customersByType.put(<span class="string">"abcde"</span>, <span class="keyword">new</span> Person(<span class="number">1</span>, <span class="number">1</span>, <span class="string">"a"</span>, <span class="string">"46546"</span>, <span class="number">1</span>, <span class="number">50</span>));</div><div class="line"></div><div class="line">   <span class="keyword">for</span>(Person person:customersByType.get(<span class="string">"abc"</span>))</div><div class="line">   &#123;</div><div class="line">     System.out.println(person.getAge());<span class="comment">//打印相同key值的元素信息</span></div><div class="line">   &#125;</div><div class="line"><span class="comment">//两个key的map（Table类型）</span></div><div class="line">Table&lt;Integer,Integer,Person&gt; personTable=HashBasedTable.create();</div><div class="line">   personTable.put(<span class="number">0</span>,<span class="number">33</span>,<span class="keyword">new</span> Person(<span class="number">7</span>, <span class="number">1</span>, <span class="string">"add"</span>, <span class="string">"46546"</span>,<span class="number">0</span>, <span class="number">33</span>));</div><div class="line">   personTable.put(<span class="number">0</span>,<span class="number">27</span>,<span class="keyword">new</span> Person(<span class="number">5</span>, <span class="number">1</span>, <span class="string">"ade"</span>, <span class="string">"46546"</span>,<span class="number">0</span>, <span class="number">27</span>));</div><div class="line">   personTable.put(<span class="number">0</span>,<span class="number">30</span>,<span class="keyword">new</span> Person(<span class="number">2</span>, <span class="number">1</span>, <span class="string">"ab"</span>, <span class="string">"46546"</span>, <span class="number">0</span>, <span class="number">30</span>));</div><div class="line">   personTable.put(<span class="number">0</span>,<span class="number">25</span>,<span class="keyword">new</span> Person(<span class="number">3</span>, <span class="number">1</span>, <span class="string">"abc"</span>, <span class="string">"46546"</span>, <span class="number">0</span>, <span class="number">25</span>));</div><div class="line">   personTable.put(<span class="number">1</span>,<span class="number">50</span>,<span class="keyword">new</span> Person(<span class="number">4</span>, <span class="number">1</span>, <span class="string">"aef"</span>, <span class="string">"46546"</span>, <span class="number">1</span>, <span class="number">50</span>));</div><div class="line">   personTable.put(<span class="number">1</span>,<span class="number">20</span>,<span class="keyword">new</span> Person(<span class="number">1</span>, <span class="number">1</span>, <span class="string">"a"</span>, <span class="string">"46546"</span>, <span class="number">1</span>, <span class="number">20</span>));</div><div class="line">   personTable.put(<span class="number">1</span>,<span class="number">29</span>,<span class="keyword">new</span> Person(<span class="number">6</span>, <span class="number">1</span>, <span class="string">"acc"</span>, <span class="string">"46546"</span>, <span class="number">1</span>, <span class="number">29</span>));</div><div class="line">   personTable.put(<span class="number">1</span>,<span class="number">14</span>,<span class="keyword">new</span> Person(<span class="number">8</span>, <span class="number">1</span>, <span class="string">"afadsf"</span>, <span class="string">"46546"</span>, <span class="number">1</span>, <span class="number">66</span>));</div><div class="line">   Map&lt;Integer,Person&gt; rowMap= personTable.row(<span class="number">1</span>);</div><div class="line">   System.out.println(<span class="string">"rowMap is"</span> + rowMap.keySet());</div><div class="line"><span class="comment">//键值互逆map</span></div><div class="line">BiMap&lt;Integer,String&gt; biMap=HashBiMap.create();</div><div class="line">biMap.put(<span class="number">1</span>,<span class="string">"hello"</span>);</div><div class="line">biMap.put(<span class="number">2</span>,<span class="string">"world"</span>);</div><div class="line">biMap.inverse();<span class="comment">//键值互换</span></div></pre></td></tr></table></figure>
+<!--more-->
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java-Google-API-Tool/" rel="tag"># Java Google API Tool</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/02/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/1.jpg"
+               alt="Andy" />
+          <p class="site-author-name" itemprop="name">Andy</p>
+           
+              <p class="site-description motion-element" itemprop="description">♥Follow your heart, Live better♥</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Ⅰ-常用API汇总"><span class="nav-number">1.</span> <span class="nav-text">Ⅰ.常用API汇总</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-参数预判"><span class="nav-number">1.1.</span> <span class="nav-text">1. 参数预判</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-对象方法（Objects）"><span class="nav-number">1.2.</span> <span class="nav-text">2. 对象方法（Objects）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-集合API的使用"><span class="nav-number">1.3.</span> <span class="nav-text">3. 集合API的使用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Andy</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
