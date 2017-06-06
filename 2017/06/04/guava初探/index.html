@@ -171,6 +171,38 @@
             
 
             <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Java/">
+                    Java <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Java/tool/">
+                    tool <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Spring/">
+                    Spring <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Spring/Exception/">
+                    Exception <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
                 <a class="no-padding" href="/categories/日志/">
                     日志 <span class="right">1 篇</span></a>
                 </a>
@@ -206,6 +238,10 @@
         <span class="breadcrumb">当前位置（分类目录）</span>
         
             
+    
+    
+    <a class="breadcrumb" href="/categories/Java/">Java</a><a class="breadcrumb" href="/categories/Java/tool/">tool</a>
+
 
         
 
@@ -236,7 +272,9 @@
             
     <div class="tags-row">
         
-            <a href="/tags/Java-Google-API-Tool/" class="chip pink lighten-1">Java Google API Tool</a>
+            <a href="/tags/Google-API/" class="chip pink lighten-1">Google API</a>
+        
+            <a href="/tags/tool/" class="chip pink lighten-1">tool</a>
         
     </div>
 
@@ -263,6 +301,12 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//简单用法</span></div><div class="line">Lists.newArrayList(<span class="number">30</span>, <span class="number">20</span>, <span class="number">60</span>, <span class="number">80</span>, <span class="number">10</span>);</div><div class="line">Ordering.natural().sortedCopy(numbers); <span class="comment">//10,20,30,60,80</span></div><div class="line">Ordering.natural().reverse().sortedCopy(numbers); <span class="comment">//80,60,30,20,10</span></div><div class="line">Ordering.natural().min(numbers); <span class="comment">//10</span></div><div class="line">Ordering.natural().max(numbers); <span class="comment">//80</span></div><div class="line">Lists.newArrayList(<span class="number">30</span>, <span class="number">20</span>, <span class="number">60</span>, <span class="number">80</span>, <span class="keyword">null</span>, <span class="number">10</span>);</div><div class="line">Ordering.natural().nullsLast().sortedCopy(numbers); <span class="comment">//10, 20,30,60,80,null</span></div><div class="line">Ordering.natural().nullsFirst().sortedCopy(numbers); <span class="comment">//null,10,20,30,60,80</span></div><div class="line"></div><div class="line"><span class="comment">//组合排序</span></div><div class="line">List&lt;Person&gt; personList=Lists.newArrayList( <span class="keyword">new</span> Person(<span class="number">1</span>, <span class="number">1</span>, <span class="string">"a"</span>, <span class="string">"46546"</span>, <span class="number">1</span>, <span class="number">20</span>),</div><div class="line">                                           <span class="keyword">new</span> Person(<span class="number">2</span>, <span class="number">2</span>, <span class="string">"a"</span>, <span class="string">"1"</span>, <span class="number">0</span>, <span class="number">30</span>),</div><div class="line">                                           <span class="keyword">new</span> Person(<span class="number">3</span>, <span class="number">3</span>, <span class="string">"bc"</span>, <span class="string">"5"</span>, <span class="number">0</span>, <span class="number">25</span>),</div><div class="line">                                           <span class="keyword">new</span> Person(<span class="number">4</span>, <span class="number">4</span>, <span class="string">"ef"</span>, <span class="string">"3"</span>, <span class="number">1</span>, <span class="number">50</span>),</div><div class="line">                                           <span class="keyword">new</span> Person(<span class="number">5</span>, <span class="number">5</span>, <span class="string">"de"</span>, <span class="string">"2"</span>,<span class="number">0</span>, <span class="number">27</span>),</div><div class="line">                                           <span class="keyword">new</span> Person(<span class="number">6</span>, <span class="number">1</span>, <span class="string">"cc"</span>, <span class="string">"2"</span>, <span class="number">1</span>, <span class="number">29</span>),</div><div class="line">                                           <span class="keyword">new</span> Person(<span class="number">7</span>, <span class="number">1</span>, <span class="string">"dd"</span>, <span class="string">"8"</span>,<span class="number">0</span>, <span class="number">33</span>));</div><div class="line"><span class="comment">//想先根据ID排序，再对id相等的根据name排序，然后对排序结果反序</span></div><div class="line">Ordering.from(Person.byId).compound(Person.byName).reverse().sortedCopy(personList);</div></pre></td></tr></table></figure>
 <!--more-->
                 
+<p class="pink-link-context">
+    <a href="/2017/06/06/spring-aop/" rel="next" title="spring aop">
+    上一篇：spring aop
+  </a>
+</p>
+
 
 
 <p class="pink-link-context">
