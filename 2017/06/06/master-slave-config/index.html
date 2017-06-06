@@ -7,7 +7,7 @@
 
     
 
-    <title>归档 | Just Do IT</title>
+    <title>读写分离 | Just Do IT</title>
     <meta name="author" content="Andy">
     
     <meta name="description" content="♥Follow your heart, Live better♥">
@@ -15,7 +15,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    
+    <meta property="og:title" content="读写分离"/>
     <meta property="og:site_name" content="Andy&#39;s Blob"/>
 
     
@@ -241,69 +241,91 @@
 
     <main>
         <div class="container main-container">
-    
-
-<nav class="page-nav hide-on-small-only">
+    <nav class="page-nav hide-on-small-only">
     <div class="nav-wrapper indigo">
-        <span class="breadcrumb">当前位置（归档）</span>
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/Spring/">Spring</a><a class="breadcrumb" href="/categories/Spring/mysql/">mysql</a>
+
+
         
 
         
     </div>
 </nav>
 
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>读写分离</h1>
+    
 
 
-    <ul class="collapsible mt-0" data-collapsible="accordion">
+            </div>
+            <time class="pink-link-context" datetime="2017-06-06T08:06:45.000Z"><a href="/2017/06/06/master-slave-config/">2017-06-06</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
         
+            <a href="/tags/read-write/" class="chip pink lighten-1">read/write</a>
         
-            <li>
-                <div class="collapsible-header active">
-                    <i class="fa fa-archive"></i>2017
-                </div>
-                <div class="collapsible-body">
-                    <div class="collection">
-                        
-                            <a href="/2017/06/06/master-slave-config/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2017-06-06T08:06:45.000Z">2017-06-06</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                读写分离
-                            </a>
-                        
-                            <a href="/2017/06/06/spring-aop/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2017-06-06T02:53:45.000Z">2017-06-06</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                Spring AOP动态代理异常
-                            </a>
-                        
-                            <a href="/2017/06/04/guava初探/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2017-06-04T07:23:14.000Z">2017-06-04</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                guava初探
-                            </a>
-                        
-                    </div>
-                </div>
-            </li>
+            <a href="/tags/master-slave-config/" class="chip pink lighten-1">master/slave config</a>
         
-            <li>
-                <div class="collapsible-header ">
-                    <i class="fa fa-archive"></i>2014
-                </div>
-                <div class="collapsible-body">
-                    <div class="collection">
-                        
-                            <a href="/2014/05/07/新的开始/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2014-05-07T10:44:12.000Z">2014-05-07</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                新的开始
-                            </a>
-                        
-                    </div>
-                </div>
-            </li>
-        
-    </ul>
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#Spring-Mybatis实现数据库读写分离"><span class="section table-of-contents-text">Spring+Mybatis实现数据库读写分离</span></a></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <h2 id="Spring-Mybatis实现数据库读写分离"><a href="#Spring-Mybatis实现数据库读写分离" class="headerlink" title="Spring+Mybatis实现数据库读写分离"></a>Spring+Mybatis实现数据库读写分离</h2><p>读写分离原理：Master库负责数据更新和实时数据查询  Slave库当然负责非实时数据查询。</p>
+<p>读写分离目标：减轻Master库的压力，将用户查询数据的请求分发到Slave库，从而保证系统的健壮性。</p>
+<p>实现模式：XML配置（与系统非注解模式保持一致）</p>
+<a id="more"></a>
+<p>​    1）定义2个数据库连接，一个是Master,另一个是Slave。更新数据时我们读取Master，查询数据时我们读取Slave，数据库配置文件如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//主库配置(Master)</div><div class="line">database.slave.url=jdbc:mysql://xxx.xxx.x.xx:3306/dss_db_v1?useUnicode=true&amp;characterEncoding=UTF-8</div><div class="line">database.master.username=root</div><div class="line">database.master.password=123456</div><div class="line"></div><div class="line">//从库配置(Slave)</div><div class="line">database.slave.url=jdbc:mysql://xxx.xxx.x.xx:3306/dss_db_v1?useUnicode=true&amp;characterEncoding=UTF-8</div><div class="line">database.slave.username=root</div><div class="line">database.slave.password=123456</div></pre></td></tr></table></figure>
+<p>​    2）配置Spring中的数据源，数据源配置文件如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">//从库数据源配置</div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSourceSlave"</span> <span class="attr">class</span>=<span class="string">"com.alibaba.druid.pool.DruidDataSource"</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!-- 基本属性 url、user、password --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">value</span>=<span class="string">"$&#123;database.driverClassName&#125;"</span> /&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"$&#123;database.slave.url&#125;"</span> /&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"$&#123;database.slave.username&#125;"</span> /&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;database.slave.password&#125;"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">//主库数据源配置</div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSourceMaster"</span> <span class="attr">class</span>=<span class="string">"com.alibaba.druid.pool.DruidDataSource"</span> &gt;</span></div><div class="line">  <span class="comment">&lt;!-- 基本属性 url、user、password --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">value</span>=<span class="string">"$&#123;database.driverClassName&#125;"</span> /&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"$&#123;database.master.url&#125;"</span> /&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"$&#123;database.master.username&#125;"</span> /&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;database.master.password&#125;"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>​    3）配置SqlSessionFactoryBean工厂产生SqlSession对象</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">//从库连接工厂配置</div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sqlSessionFactorySlave"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.SqlSessionFactoryBean"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSlaveSource"</span> /&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"classpath:mybatis.xml"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sqlSessionSlave"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.SqlSessionTemplate"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">ref</span>=<span class="string">"sqlSessionFactorySlave"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">//主库连接工厂配置</div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sqlSessionFactoryMaster"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.SqlSessionFactoryBean"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSourceMaster"</span> /&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"classpath:mybatis.xml"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sqlSessionMaster"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.SqlSessionTemplate"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">ref</span>=<span class="string">"sqlSessionFactoryMaster"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>​    4）重中之重，DAO层的配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">//从库(sqlSessionSlave)负责查询</div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"queryDAO"</span> <span class="attr">class</span>=<span class="string">"com.echemi.b2b.dss.dao.impl.QueryDAOImpl"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sqlSession"</span> <span class="attr">ref</span>=<span class="string">"sqlSessionSlave"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">//主库(sqlSessionMaster)负责更新</div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"updateDAO"</span> <span class="attr">class</span>=<span class="string">"com.echemi.b2b.dss.dao.impl.UpdateDAOImpl"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sqlSession"</span> <span class="attr">ref</span>=<span class="string">"sqlSessionMaster"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"insertDAO"</span> <span class="attr">class</span>=<span class="string">"com.echemi.b2b.dss.dao.impl.InsertDAOImpl"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sqlSessionFactory"</span> <span class="attr">ref</span>=<span class="string">"sqlSessionFactoryMaster"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>​    5）读写分离完成，重启服务</p>
+<!--more-->
+                
+
+
+<p class="pink-link-context">
+    <a href="/2017/06/06/spring-aop/" rel="next" title="Spring AOP动态代理异常">
+    下一篇：Spring AOP动态代理异常
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
 
 
 </div>
