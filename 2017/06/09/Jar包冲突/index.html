@@ -7,7 +7,7 @@
 
     
 
-    <title>日志 | Just Do IT</title>
+    <title>Maven依赖jar包冲突解决 | Just Do IT</title>
     <meta name="author" content="Andy">
     
     <meta name="description" content="♥Follow your heart, Live better♥">
@@ -15,7 +15,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    
+    <meta property="og:title" content="Maven依赖jar包冲突解决"/>
     <meta property="og:site_name" content="Andy&#39;s Blob"/>
 
     
@@ -171,16 +171,16 @@
             
 
             <li class="collapse-level-0" collapse-level="0">
-                <a class="no-padding" href="/categories/Java/">
-                    Java <span class="right">1 篇</span></a>
+                <a class="no-padding" href="/categories/Maven/">
+                    Maven <span class="right">1 篇</span></a>
                 </a>
             </li>
 
         
 
             <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/Java/tool/">
-                    tool <span class="right">1 篇</span></a>
+                <a class="no-padding" href="/categories/Maven/config/">
+                    config <span class="right">1 篇</span></a>
                 </a>
             </li>
 
@@ -211,8 +211,16 @@
         
 
             <li class="collapse-level-0" collapse-level="0">
-                <a class="no-padding" href="/categories/日志/">
-                    日志 <span class="right">1 篇</span></a>
+                <a class="no-padding" href="/categories/Java/">
+                    Java <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Java/tool/">
+                    tool <span class="right">1 篇</span></a>
                 </a>
             </li>
 
@@ -241,30 +249,87 @@
 
     <main>
         <div class="container main-container">
-    
-
-<nav class="page-nav hide-on-small-only">
+    <nav class="page-nav hide-on-small-only">
     <div class="nav-wrapper indigo">
         <span class="breadcrumb">当前位置（分类目录）</span>
         
+            
+    
+    
+    <a class="breadcrumb" href="/categories/Maven/">Maven</a><a class="breadcrumb" href="/categories/Maven/config/">config</a>
+
 
         
-            <a class="breadcrumb" href="/categories/日志/">日志</a>
+
         
     </div>
 </nav>
 
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>Maven依赖jar包冲突解决</h1>
+    
 
 
-    <div class="collection mt-0">
+            </div>
+            <time class="pink-link-context" datetime="2017-06-09T01:18:53.000Z"><a href="/2017/06/09/Jar包冲突/">2017-06-09</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
         
-            <a href="/2014/05/07/新的开始/" class="collection-item grey-text text-darken-1">
-                <time datetime="2014-05-07T10:44:12.000Z">2014-05-07</time>
-                <span>&nbsp;&nbsp;&nbsp;</span>
-                新的开始
-            </a>
+            <a href="/tags/jar包冲突/" class="chip pink lighten-1">jar包冲突</a>
         
     </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#Maven依赖jar包冲突解决总结"><span class="section table-of-contents-text">Maven依赖jar包冲突解决总结</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#现象描述"><span class="section table-of-contents-text">现象描述</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#出错日志"><span class="section table-of-contents-text">出错日志</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#定位之路"><span class="section table-of-contents-text">定位之路</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#解决方案"><span class="section table-of-contents-text">解决方案</span></a></li></ol></li></ol></li></ol></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <h2 id="Maven依赖jar包冲突解决总结"><a href="#Maven依赖jar包冲突解决总结" class="headerlink" title="Maven依赖jar包冲突解决总结"></a>Maven依赖jar包冲突解决总结</h2><h5 id="现象描述"><a href="#现象描述" class="headerlink" title="现象描述"></a>现象描述</h5><p>​        项目中所有的日志debug和info的信息无法打印到控制台和输出到文件中</p>
+<h5 id="出错日志"><a href="#出错日志" class="headerlink" title="出错日志"></a>出错日志</h5><p>​        SLF4J: This version of SLF4J requires log4j version 1.2.12 or later. See also <a href="http://www.slf4j.org/codes.html#log4j_version，看到这里，心里窃喜，原来是log4J的版本太低导致的，升级一下就ok，但到pom文件中一看log4j的版本，已经是高版本。" target="_blank" rel="external">http://www.slf4j.org/codes.html#log4j_version，看到这里，心里窃喜，原来是log4J的版本太低导致的，升级一下就ok，但到pom文件中一看log4j的版本，已经是高版本。</a></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">log4j.version</span>&gt;</span>1.2.17<span class="tag">&lt;/<span class="name">log4j.version</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-log4j12<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;slf4j.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
+<h5 id="定位之路"><a href="#定位之路" class="headerlink" title="定位之路"></a>定位之路</h5><p>​        查看工程中已有的输出日志，发信日志信息最新的时间戳是昨天的晚上六点，所以本吊瞬间意识到真相只有一个，那就是今天改动的代码和配置出的幺蛾子，于是代码回退，逐步对比，终于抓出了罪魁祸首，是他，是他，就是他，一个小Jar包—–GroboUtils-5-core.jar</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span> </div><div class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.sourceforge.groboutils<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span> </div><div class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>groboutils-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span> </div><div class="line">     <span class="tag">&lt;<span class="name">version</span>&gt;</span>5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">scope</span>&gt;</span>system<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">systemPath</span>&gt;</span>$&#123;basedir&#125;/src/main/webapp/WEB-INF/lib/GroboUtils-5-core.jar<span class="tag">&lt;/<span class="name">systemPath</span>&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>​                 容小的向各位看官简单介绍下此jar包的功能，过Junit单元测试的同学应该会有感觉，Junit本身是不支持普通的多线程测试的，这是因为Junit的底层实现上，是用System.exit退出用例执行的。JVM都终止了，在测试线程启动的其他线程自然也无法执行。通过google，找到了GroboUtils这个Junit多线程测试的开源的第三方的工具包。介绍完了jar包的功能，各位客官可能就要问你日志输不出跟人家的jar包有什么关系，没有证据，小生绝不敢乱扔锅，各位请看此jar包的结构。</p>
+<p><img src="/img/jar包结构.png" alt="jar包结构"></p>
+<p>要西，此jar包中也配置了一个log4j.properties，我们看下他的配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">log4j.rootCategory=WARN, stdout  -------日志级别提升到WARN</div><div class="line"># A1 is set to be a ConsoleAppender.</div><div class="line">log4j.appender.stdout=org.apache.log4j.ConsoleAppender</div><div class="line">log4j.appender.stdout.layout=org.apache.log4j.PatternLayout</div><div class="line">log4j.appender.stdout.layout.ConversionPattern=%5p [%t] (%F:%L) - %m%n</div><div class="line"></div><div class="line">log4j.category.net.sourceforge.groboutils.codecoverage=WARN</div></pre></td></tr></table></figure>
+<p>输出级别定义到warn，所以导致咱项目中的debug和info的辅助日志信息打印不出来，删掉此配置文件，重新部署，日志正常打印</p>
+<h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><p>​    使用压缩工具打开xxx-xxx-x.jar，删除其中的日志配置文件即可</p>
+
+                
+
+
+<p class="pink-link-context">
+    <a href="/2017/06/06/master-slave-config/" rel="next" title="读写分离">
+    下一篇：读写分离
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
 
 
 </div>
