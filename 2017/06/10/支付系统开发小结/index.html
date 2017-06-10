@@ -320,7 +320,7 @@
 
 
             <div class="toc pink-link-context hide-on-med-and-down">
-    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#简易支付系统的开发实践之路"><span class="section table-of-contents-text">简易支付系统的开发实践之路</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#系统架构"><span class="section table-of-contents-text">系统架构</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#支付实现"><span class="section table-of-contents-text">支付实现</span></a></li></ol></li></ol>
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#简易支付系统的开发实践之路"><span class="section table-of-contents-text">简易支付系统的开发实践之路</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#系统架构"><span class="section table-of-contents-text">系统架构</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#支付实现"><span class="section table-of-contents-text">支付实现</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#环境搭建"><span class="section table-of-contents-text">环境搭建</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#小坑记录"><span class="section table-of-contents-text">小坑记录</span></a></li></ol></li></ol>
 </div>
 
 
@@ -335,7 +335,13 @@
 <p>​                    3）获取支付结果，更新流水</p>
 <p>​        实现流程图如下：</p>
 <p>​        <img src="\img\充值模型.jpg" alt="充值模型"></p>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>​            微信支付环境搭建：<a href="https://my.oschina.net/xiaohui249/blog/656511" target="_blank" rel="external">https://my.oschina.net/xiaohui249/blog/656511</a></p>
+<p>​            阿里支付环境搭建：<a href="https://doc.open.alipay.com/docs/doc.htm?" target="_blank" rel="external">https://doc.open.alipay.com/docs/doc.htm?</a></p>
+<h3 id="小坑记录"><a href="#小坑记录" class="headerlink" title="小坑记录"></a>小坑记录</h3><p>​            1）微信预支付本地测试的时候，用loclahost::8090/echemi_pay/ 会失败，spbill_create_ip生成失败需要将localhost显示指定为具体的xxx.xx.xx.x地址方可识别。</p>
+<p>​            2）回调地址必须具有公网访问权限</p>
+<p>​            </p>
 <!--more-->
+
                 
 
 
