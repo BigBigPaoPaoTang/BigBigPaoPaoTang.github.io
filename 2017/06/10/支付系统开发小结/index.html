@@ -179,14 +179,6 @@
         
 
             <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/Spring/mysql/">
-                    mysql <span class="right">1 篇</span></a>
-                </a>
-            </li>
-
-        
-
-            <li class="collapse-level-1" collapse-level="1">
                 <a class="no-padding" href="/categories/Spring/AOP/">
                     AOP <span class="right">1 篇</span></a>
                 </a>
@@ -202,17 +194,9 @@
 
         
 
-            <li class="collapse-level-0" collapse-level="0">
-                <a class="no-padding" href="/categories/Java/">
-                    Java <span class="right">1 篇</span></a>
-                </a>
-            </li>
-
-        
-
             <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/Java/tool/">
-                    tool <span class="right">1 篇</span></a>
+                <a class="no-padding" href="/categories/Spring/mysql/">
+                    mysql <span class="right">1 篇</span></a>
                 </a>
             </li>
 
@@ -245,6 +229,22 @@
             <li class="collapse-level-1" collapse-level="1">
                 <a class="no-padding" href="/categories/支付系统/系统架构/">
                     系统架构 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Java/">
+                    Java <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Java/tool/">
+                    tool <span class="right">1 篇</span></a>
                 </a>
             </li>
 
@@ -320,7 +320,7 @@
 
 
             <div class="toc pink-link-context hide-on-med-and-down">
-    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#简易支付系统的开发实践之路"><span class="section table-of-contents-text">简易支付系统的开发实践之路</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#系统架构"><span class="section table-of-contents-text">系统架构</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#支付实现"><span class="section table-of-contents-text">支付实现</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#环境搭建"><span class="section table-of-contents-text">环境搭建</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#小坑记录"><span class="section table-of-contents-text">小坑记录</span></a></li></ol></li></ol>
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#简易支付系统的开发实践之路"><span class="section table-of-contents-text">简易支付系统的开发实践之路</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#系统架构"><span class="section table-of-contents-text">系统架构</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#支付实现"><span class="section table-of-contents-text">支付实现</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#环境搭建"><span class="section table-of-contents-text">环境搭建</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#系统优化"><span class="section table-of-contents-text">系统优化</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#状态同步"><span class="section table-of-contents-text">状态同步</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#代码重构"><span class="section table-of-contents-text">代码重构</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#监控机制"><span class="section table-of-contents-text">监控机制</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#小坑记录"><span class="section table-of-contents-text">小坑记录</span></a></li></ol></li></ol>
 </div>
 
 
@@ -337,12 +337,24 @@
 <p>​        <img src="\img\充值模型.jpg" alt="充值模型"></p>
 <h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>​            微信支付环境搭建：<a href="https://my.oschina.net/xiaohui249/blog/656511" target="_blank" rel="external">https://my.oschina.net/xiaohui249/blog/656511</a></p>
 <p>​            阿里支付环境搭建：<a href="https://doc.open.alipay.com/docs/doc.htm?" target="_blank" rel="external">https://doc.open.alipay.com/docs/doc.htm?</a></p>
+<h3 id="系统优化"><a href="#系统优化" class="headerlink" title="系统优化"></a>系统优化</h3><h4 id="状态同步"><a href="#状态同步" class="headerlink" title="状态同步"></a>状态同步</h4><p>​        <strong>问题描述：</strong>支付状态的同步依赖第三方支付渠道的异步通知，一旦第三方支付渠道出现问题，则导致支付失败。</p>
+<p>​        <strong>解决方案：</strong>在已有的第三方支付渠道异步通知的基础上，通过主动查询定时批量同步状态，解决了绝大部分状态同步问题。</p>
+<h4 id="代码重构"><a href="#代码重构" class="headerlink" title="代码重构"></a>代码重构</h4><p>​        <strong>问题描述：</strong>不通的支付渠道其实业务流程是一样的，都是获取请求数据，验证数据，支付成功判断，执行成功业务逻辑.</p>
+<p>​        <strong>解决方案：</strong>抽取共通方法，将具体怎么执行交给策略类来做<img src="\img\ploy_category.png" alt="ploy_category">    </p>
+<h4 id="监控机制"><a href="#监控机制" class="headerlink" title="监控机制"></a>监控机制</h4><p>​        <strong>问题描述：</strong>监控支付失败的情况，存库，邮件通知</p>
+<p>​        <strong>解决方案：</strong>AOP切面监控</p>
 <h3 id="小坑记录"><a href="#小坑记录" class="headerlink" title="小坑记录"></a>小坑记录</h3><p>​            1）微信预支付本地测试的时候，用loclahost::8090/echemi_pay/ 会失败，spbill_create_ip生成失败需要将localhost显示指定为具体的xxx.xx.xx.x地址方可识别。</p>
 <p>​            2）回调地址必须具有公网访问权限</p>
 <p>​            </p>
 <!--more-->
 
                 
+<p class="pink-link-context">
+    <a href="/2017/06/12/IM即时通讯系统开发实践之路/" rel="next" title="IM即时通讯系统开发实践之路">
+    上一篇：IM即时通讯系统开发实践之路
+  </a>
+</p>
+
 
 
 <p class="pink-link-context">
