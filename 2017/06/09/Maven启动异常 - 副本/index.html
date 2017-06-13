@@ -7,7 +7,7 @@
 
     
 
-    <title>支付系统 | Just Do IT</title>
+    <title>tomcat部署项目失败 | Just Do IT</title>
     <meta name="author" content="Andy">
     
     <meta name="description" content="♥Follow your heart, Live better♥">
@@ -15,7 +15,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    
+    <meta property="og:title" content="tomcat部署项目失败"/>
     <meta property="og:site_name" content="Andy&#39;s Blob"/>
 
     
@@ -281,30 +281,93 @@
 
     <main>
         <div class="container main-container">
-    
-
-<nav class="page-nav hide-on-small-only">
+    <nav class="page-nav hide-on-small-only">
     <div class="nav-wrapper indigo">
         <span class="breadcrumb">当前位置（分类目录）</span>
         
+            
+    
+    
+    <a class="breadcrumb" href="/categories/Maven/">Maven</a><a class="breadcrumb" href="/categories/Maven/部署/">部署</a>
+
 
         
-            <a class="breadcrumb" href="/categories/支付系统/">支付系统</a>
+
         
     </div>
 </nav>
 
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>tomcat部署项目失败</h1>
+    
 
 
-    <div class="collection mt-0">
+            </div>
+            <time class="pink-link-context" datetime="2017-06-09T01:18:53.000Z"><a href="/2017/06/09/Maven启动异常 - 副本/">2017-06-09</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
         
-            <a href="/2017/06/10/支付系统开发小结/" class="collection-item grey-text text-darken-1">
-                <time datetime="2017-06-10T02:29:54.000Z">2017-06-10</time>
-                <span>&nbsp;&nbsp;&nbsp;</span>
-                简易支付系统的开发实践之路
-            </a>
+            <a href="/tags/jar包冲突/" class="chip pink lighten-1">jar包冲突</a>
+        
+            <a href="/tags/maven/" class="chip pink lighten-1">maven</a>
         
     </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#Failed-to-start-component-StandardEngine-Tomcat-StandardHost-localhost"><span class="section table-of-contents-text">Failed to start component [StandardEngine[Tomcat].StandardHost[localhost]</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#触发条件"><span class="section table-of-contents-text">触发条件</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#错误原因"><span class="section table-of-contents-text">错误原因</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#解决方案"><span class="section table-of-contents-text">解决方案</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#方案验证"><span class="section table-of-contents-text">方案验证</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#参考文章"><span class="section table-of-contents-text">参考文章</span></a></li></ol></li></ol></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <h2 id="Failed-to-start-component-StandardEngine-Tomcat-StandardHost-localhost"><a href="#Failed-to-start-component-StandardEngine-Tomcat-StandardHost-localhost" class="headerlink" title="Failed to start component [StandardEngine[Tomcat].StandardHost[localhost]"></a>Failed to start component [StandardEngine[Tomcat].StandardHost[localhost]</h2><p>构建了一个maven项目，tomcat发布的时候报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">java.util.concurrent.ExecutionException: org.apache.catalina.LifecycleException: Failed to start component [StandardEngine[Tomcat].StandardHost[localhost].StandardContext[/shiro.demo]]</div><div class="line">	at java.util.concurrent.FutureTask.report(FutureTask.java:122)</div><div class="line">	at java.util.concurrent.FutureTask.get(FutureTask.java:188)</div><div class="line">	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:1123)</div><div class="line">	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:785)</div><div class="line">	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)</div><div class="line">	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1559)</div><div class="line">	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1549)</div><div class="line">	at java.util.concurrent.FutureTask.run(FutureTask.java:262)</div><div class="line">	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)</div><div class="line">	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)</div><div class="line">	at java.lang.Thread.run(Thread.java:744)</div><div class="line">Caused by: org.apache.catalina.LifecycleException: Failed to start component [StandardEngine[Tomcat].StandardHost[localhost].StandardContext[/shiro.demo]]</div><div class="line">	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:154)</div></pre></td></tr></table></figure>
+<h4 id="触发条件"><a href="#触发条件" class="headerlink" title="触发条件"></a>触发条件</h4><p>​        maven项目中引入了这个依赖。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1 &lt;dependency&gt;  </div><div class="line">2     &lt;groupId&gt;net.mingsoft&lt;/groupId&gt;  </div><div class="line">3     &lt;artifactId&gt;shiro-freemarker-tags&lt;/artifactId&gt;  </div><div class="line">4     &lt;version&gt;0.1&lt;/version&gt;</div><div class="line">5 &lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<h4 id="错误原因"><a href="#错误原因" class="headerlink" title="错误原因"></a>错误原因</h4><p>​    mingsoft的shiro-freemarker-tags插件引入了javax.servlet-api包，和项目中其他依赖引入的servlet-api冲突(其实和tomcat自带的servlet-api也冲突)    </p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>​    最简单方便的方法。单独去掉javax.servlet-api依赖。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">	&lt;groupId&gt;net.mingsoft&lt;/groupId&gt;</div><div class="line">	&lt;artifactId&gt;shiro-freemarker-tags&lt;/artifactId&gt;</div><div class="line">	&lt;version&gt;0.1&lt;/version&gt;</div><div class="line">	&lt;exclusions&gt;</div><div class="line">        &lt;exclusion&gt;</div><div class="line">            &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;</div><div class="line">            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;</div><div class="line">        &lt;/exclusion&gt;</div><div class="line">   	&lt;/exclusions&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<h4 id="方案验证"><a href="#方案验证" class="headerlink" title="方案验证"></a>方案验证</h4><p>​    Tomcat正常启动</p>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a href="http://www.cnblogs.com/tibit/p/6210651.html" target="_blank" rel="external">http://www.cnblogs.com/tibit/p/6210651.html</a></p>
+
+                
+<p class="pink-link-context">
+    <a href="/2017/06/09/Jar包冲突/" rel="next" title="Maven依赖jar包冲突解决">
+    上一篇：Maven依赖jar包冲突解决
+  </a>
+</p>
+
+
+
+<p class="pink-link-context">
+    <a href="/2017/06/06/master-slave-config/" rel="next" title="读写分离">
+    下一篇：读写分离
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
 
 
 </div>
