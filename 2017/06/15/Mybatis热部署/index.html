@@ -1,0 +1,748 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>Mybatis热部署 | Just Do IT</title>
+    <meta name="author" content="Andy">
+    
+    <meta name="description" content="♥Follow your heart, Live better♥">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="Mybatis热部署"/>
+    <meta property="og:site_name" content="Andy&#39;s Blob"/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="Andy&#39;s Blob" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">Andy&#39;s Blob</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading" >
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://or21uqr9s.bkt.clouddn.com/1.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">Andy</p>
+                        <p class="desc">Java/Android/C</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading" >
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Spring/">
+                    Spring <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Spring/AOP/">
+                    AOP <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Spring/mysql/">
+                    mysql <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Spring/Exception/">
+                    Exception <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/IM/">
+                    IM <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/IM/openfire/">
+                    openfire <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/JVM/">
+                    JVM <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/JVM/内存回收/">
+                    内存回收 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Maven/">
+                    Maven <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Maven/部署/">
+                    部署 <span class="right">2 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Maven/config/">
+                    config <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Mybatis/">
+                    Mybatis <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Mybatis/热部署/">
+                    热部署 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Java/">
+                    Java <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Java/tool/">
+                    tool <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/支付系统/">
+                    支付系统 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/支付系统/系统架构/">
+                    系统架构 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/Mybatis/">Mybatis</a><a class="breadcrumb" href="/categories/Mybatis/热部署/">热部署</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>Mybatis热部署</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2017-06-15T05:53:47.000Z"><a href="/2017/06/15/Mybatis热部署/">2017-06-15</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/mybatis/" class="chip pink lighten-1">mybatis</a>
+        
+            <a href="/tags/deploy/" class="chip pink lighten-1">deploy</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#Mybatis热部署"><span class="section table-of-contents-text">Mybatis热部署</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#解决思路"><span class="section table-of-contents-text">解决思路</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#配置步骤"><span class="section table-of-contents-text">配置步骤</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#Tips"><span class="section table-of-contents-text">Tips</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#声明"><span class="section table-of-contents-text">声明</span></a></li></ol></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <h1 id="Mybatis热部署"><a href="#Mybatis热部署" class="headerlink" title="Mybatis热部署"></a>Mybatis热部署</h1><p>​        每次修改mybatis的sql脚本后，都要重启，因为mybatis的mapper文件默认只在启动时加载到缓存，改动后不会自动加载, 大大影响了我们的开发效率。</p>
+<a id="more"></a>
+<h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><p>​        使用定时任务定时扫描mapper文件的改动，如果有改动则调用mapper文件的加载方法XMLMapperBuilder.parse()</p>
+<h2 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h2><ol>
+<li><p>新建定时扫描线程类—–MapperRefresh.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span>  </div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;  </div><div class="line"></div><div class="line">     beforeTime = System.currentTimeMillis();  </div><div class="line"></div><div class="line">     log.debug(<span class="string">"[location] "</span> + location);  </div><div class="line">     log.debug(<span class="string">"[configuration] "</span> + configuration);  </div><div class="line"></div><div class="line">     <span class="keyword">if</span> (enabled) &#123;  </div><div class="line">     	log.debug(<span class="string">"Mybatis扫描更新线程启动"</span>);  </div><div class="line">         <span class="comment">// 启动刷新线程  </span></div><div class="line">         <span class="keyword">final</span> MapperRefresh runnable = <span class="keyword">this</span>;  </div><div class="line">         <span class="keyword">new</span> Thread(<span class="keyword">new</span> java.lang.Runnable() &#123;  </div><div class="line">             <span class="meta">@Override</span>  </div><div class="line">             <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;  </div><div class="line"></div><div class="line">                 <span class="keyword">if</span> (location == <span class="keyword">null</span>)&#123;  </div><div class="line">                     location = Sets.newHashSet(); </div><div class="line">                     String s = <span class="string">"D:/xxx/xxx/xxx/dao/mapper"</span>;</div><div class="line">                     location.add(s);  </div><div class="line">                     log.debug(<span class="string">"Locarion's size:"</span> + location.size());  </div><div class="line">                 &#125;  </div><div class="line"></div><div class="line">                 <span class="keyword">try</span> &#123;  </div><div class="line">                     Thread.sleep(delaySeconds * <span class="number">1000</span>);  </div><div class="line">                 &#125; <span class="keyword">catch</span> (InterruptedException e2) &#123;  </div><div class="line">                     e2.printStackTrace();  </div><div class="line">                 &#125;  </div><div class="line">                 refresh = <span class="keyword">true</span>;  </div><div class="line"></div><div class="line">                 <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;  </div><div class="line">                     <span class="keyword">try</span> &#123;  </div><div class="line">                         <span class="keyword">for</span> (String s : location) &#123;  </div><div class="line">                             runnable.refresh(s, beforeTime);  </div><div class="line">                         &#125;  </div><div class="line">                     &#125; <span class="keyword">catch</span> (Exception e1) &#123;  </div><div class="line">                         e1.printStackTrace();  </div><div class="line">                     &#125;  </div><div class="line">                     <span class="keyword">try</span> &#123;  </div><div class="line">                         Thread.sleep(sleepSeconds * <span class="number">1000</span>);  </div><div class="line">                     &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;  </div><div class="line">                         e.printStackTrace();  </div><div class="line">                     &#125;  </div><div class="line"></div><div class="line">                 &#125;  </div><div class="line">             &#125;  </div><div class="line">         &#125;, <span class="string">"MyBatis-Mapper-Refresh"</span>).start();  </div><div class="line">     &#125;  </div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<ol>
+<li><p>MyBatis有几个不太好的地方，Mapper XML有错误的时候，系统启动时会一直等待无法正常启动（其实是加载失败后又重新加载，进入了死循环），这里重写下SqlSessionFactoryBean.java文件，同时加入并启动上面写的线程类。</p>
+</li>
+<li><p>SqlSessionFactoryBean.java是在<strong>mybatis-spring-1.2.2.jar</strong>中，所以需要借助反编译工具先获取类源码，然后进行修改，修改完毕编译成class文件，替换jar包之前旧的SqlSessionFactoryBean.java文件</p>
+</li>
+</ol>
+<p>1）去找一个反编译软件，很多反编译软件，我这里用的是jd-gui.exe</p>
+<p>2）把下载好的jd-gui.exe打开，然后把mybatis-spring-1.2.2.jar拖到里面，找到SqlSessionFactoryBean.class这个文件，呈现在你面前的就是一个反编译过来的java文件了</p>
+<p>如下图所示：</p>
+<p><img src="\img\sqlsession.png" alt="sqlsession"></p>
+<ol>
+<li><p>修改SqlSessionFactoryBean.java文件，然后再编译成class文件，这步我一开始没想明白怎么弄，最后用了一个笨方法。在你的项目下新建一个包，包名必须是org.mybatis.spring<img src="\img\m1.png" alt="m1"></p>
+</li>
+<li><p>把下面这一大坨代码，复制到SqlSessionFactoryBean.java里面，下面这一大坨代码，我在改动的地方都加上了<strong>“修改处”</strong>三个字！！！</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div><div class="line">274</div><div class="line">275</div><div class="line">276</div><div class="line">277</div><div class="line">278</div><div class="line">279</div><div class="line">280</div><div class="line">281</div><div class="line">282</div><div class="line">283</div><div class="line">284</div><div class="line">285</div><div class="line">286</div><div class="line">287</div><div class="line">288</div><div class="line">289</div><div class="line">290</div><div class="line">291</div><div class="line">292</div><div class="line">293</div><div class="line">294</div><div class="line">295</div><div class="line">296</div><div class="line">297</div><div class="line">298</div><div class="line">299</div><div class="line">300</div><div class="line">301</div><div class="line">302</div><div class="line">303</div><div class="line">304</div><div class="line">305</div><div class="line">306</div><div class="line">307</div><div class="line">308</div><div class="line">309</div><div class="line">310</div><div class="line">311</div><div class="line">312</div><div class="line">313</div><div class="line">314</div><div class="line">315</div><div class="line">316</div><div class="line">317</div><div class="line">318</div><div class="line">319</div><div class="line">320</div><div class="line">321</div><div class="line">322</div><div class="line">323</div><div class="line">324</div><div class="line">325</div><div class="line">326</div><div class="line">327</div><div class="line">328</div><div class="line">329</div><div class="line">330</div><div class="line">331</div><div class="line">332</div><div class="line">333</div><div class="line">334</div><div class="line">335</div><div class="line">336</div><div class="line">337</div><div class="line">338</div><div class="line">339</div><div class="line">340</div><div class="line">341</div><div class="line">342</div><div class="line">343</div><div class="line">344</div><div class="line">345</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> org.mybatis.spring;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.sql.SQLException;</div><div class="line"><span class="keyword">import</span> java.util.Properties;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.sql.DataSource;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.apache.ibatis.builder.xml.XMLConfigBuilder;</div><div class="line"><span class="keyword">import</span> org.apache.ibatis.builder.xml.XMLMapperBuilder;</div><div class="line"><span class="keyword">import</span> org.apache.ibatis.executor.ErrorContext;</div><div class="line"><span class="keyword">import</span> org.apache.ibatis.logging.Log;</div><div class="line"><span class="keyword">import</span> org.apache.ibatis.logging.LogFactory;</div><div class="line"><span class="keyword">import</span> org.apache.ibatis.mapping.DatabaseIdProvider;</div><div class="line"><span class="keyword">import</span> org.apache.ibatis.mapping.Environment;</div><div class="line"><span class="keyword">import</span> org.apache.ibatis.plugin.Interceptor;</div><div class="line"><span class="keyword">import</span> org.apache.ibatis.reflection.factory.ObjectFactory;</div><div class="line"><span class="keyword">import</span> org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory;</div><div class="line"><span class="keyword">import</span> org.apache.ibatis.session.Configuration;</div><div class="line"><span class="keyword">import</span> org.apache.ibatis.session.SqlSessionFactory;</div><div class="line"><span class="keyword">import</span> org.apache.ibatis.session.SqlSessionFactoryBuilder;</div><div class="line"><span class="keyword">import</span> org.apache.ibatis.transaction.TransactionFactory;</div><div class="line"><span class="keyword">import</span> org.apache.ibatis.type.TypeAliasRegistry;</div><div class="line"><span class="keyword">import</span> org.apache.ibatis.type.TypeHandler;</div><div class="line"><span class="keyword">import</span> org.apache.ibatis.type.TypeHandlerRegistry;</div><div class="line"><span class="keyword">import</span> org.mybatis.spring.transaction.SpringManagedTransactionFactory;</div><div class="line"><span class="keyword">import</span> org.springframework.beans.factory.FactoryBean;</div><div class="line"><span class="keyword">import</span> org.springframework.beans.factory.InitializingBean;</div><div class="line"><span class="keyword">import</span> org.springframework.context.ApplicationEvent;</div><div class="line"><span class="keyword">import</span> org.springframework.context.ApplicationListener;</div><div class="line"><span class="keyword">import</span> org.springframework.context.event.ContextRefreshedEvent;</div><div class="line"><span class="keyword">import</span> org.springframework.core.NestedIOException;</div><div class="line"><span class="keyword">import</span> org.springframework.core.io.Resource;</div><div class="line"><span class="keyword">import</span> org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;</div><div class="line"><span class="keyword">import</span> org.springframework.util.Assert;</div><div class="line"><span class="keyword">import</span> org.springframework.util.ObjectUtils;</div><div class="line"><span class="keyword">import</span> org.springframework.util.StringUtils;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.echemi.b2b.dss.util.MapperRefresh;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SqlSessionFactoryBean</span></span></div><div class="line">  <span class="keyword">implements</span> <span class="title">FactoryBean</span>&lt;<span class="title">SqlSessionFactory</span>&gt;, <span class="title">InitializingBean</span>, <span class="title">ApplicationListener</span>&lt;<span class="title">ApplicationEvent</span>&gt;</div><div class="line">&#123;</div><div class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Log logger = LogFactory.getLog(SqlSessionFactoryBean.class);</div><div class="line">  <span class="keyword">private</span> Resource configLocation;</div><div class="line">  <span class="keyword">private</span> Resource[] mapperLocations;</div><div class="line">  <span class="keyword">private</span> DataSource dataSource;</div><div class="line">  <span class="keyword">private</span> TransactionFactory transactionFactory;</div><div class="line">  <span class="keyword">private</span> Properties configurationProperties;</div><div class="line">  <span class="keyword">private</span> SqlSessionFactoryBuilder sqlSessionFactoryBuilder = <span class="keyword">new</span> SqlSessionFactoryBuilder();</div><div class="line">  <span class="keyword">private</span> SqlSessionFactory sqlSessionFactory;</div><div class="line">  <span class="keyword">private</span> String environment = SqlSessionFactoryBean.class.getSimpleName();</div><div class="line">  <span class="keyword">private</span> <span class="keyword">boolean</span> failFast;</div><div class="line">  <span class="keyword">private</span> Interceptor[] plugins;</div><div class="line">  <span class="keyword">private</span> TypeHandler&lt;?&gt;[] typeHandlers;</div><div class="line">  <span class="keyword">private</span> String typeHandlersPackage;</div><div class="line">  <span class="keyword">private</span> Class&lt;?&gt;[] typeAliases;</div><div class="line">  <span class="keyword">private</span> String typeAliasesPackage;</div><div class="line">  <span class="keyword">private</span> Class&lt;?&gt; typeAliasesSuperType;</div><div class="line">  <span class="keyword">private</span> DatabaseIdProvider databaseIdProvider;</div><div class="line">  <span class="keyword">private</span> ObjectFactory objectFactory;</div><div class="line">  <span class="keyword">private</span> ObjectWrapperFactory objectWrapperFactory;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setObjectFactory</span><span class="params">(ObjectFactory objectFactory)</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">this</span>.objectFactory = objectFactory;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setObjectWrapperFactory</span><span class="params">(ObjectWrapperFactory objectWrapperFactory)</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">this</span>.objectWrapperFactory = objectWrapperFactory;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> DatabaseIdProvider <span class="title">getDatabaseIdProvider</span><span class="params">()</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.databaseIdProvider;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDatabaseIdProvider</span><span class="params">(DatabaseIdProvider databaseIdProvider)</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">this</span>.databaseIdProvider = databaseIdProvider;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPlugins</span><span class="params">(Interceptor[] plugins)</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">this</span>.plugins = plugins;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTypeAliasesPackage</span><span class="params">(String typeAliasesPackage)</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">this</span>.typeAliasesPackage = typeAliasesPackage;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTypeAliasesSuperType</span><span class="params">(Class&lt;?&gt; typeAliasesSuperType)</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">this</span>.typeAliasesSuperType = typeAliasesSuperType;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTypeHandlersPackage</span><span class="params">(String typeHandlersPackage)</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">this</span>.typeHandlersPackage = typeHandlersPackage;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTypeHandlers</span><span class="params">(TypeHandler&lt;?&gt;[] typeHandlers)</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">this</span>.typeHandlers = typeHandlers;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTypeAliases</span><span class="params">(Class&lt;?&gt;[] typeAliases)</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">this</span>.typeAliases = typeAliases;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFailFast</span><span class="params">(<span class="keyword">boolean</span> failFast)</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">this</span>.failFast = failFast;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setConfigLocation</span><span class="params">(Resource configLocation)</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">this</span>.configLocation = configLocation;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMapperLocations</span><span class="params">(Resource[] mapperLocations)</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">this</span>.mapperLocations = mapperLocations;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setConfigurationProperties</span><span class="params">(Properties sqlSessionFactoryProperties)</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">this</span>.configurationProperties = sqlSessionFactoryProperties;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDataSource</span><span class="params">(DataSource dataSource)</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">if</span> ((dataSource <span class="keyword">instanceof</span> TransactionAwareDataSourceProxy))</div><div class="line">    &#123;</div><div class="line">      <span class="keyword">this</span>.dataSource = ((TransactionAwareDataSourceProxy)dataSource).getTargetDataSource();</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">this</span>.dataSource = dataSource;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSqlSessionFactoryBuilder</span><span class="params">(SqlSessionFactoryBuilder sqlSessionFactoryBuilder)</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">this</span>.sqlSessionFactoryBuilder = sqlSessionFactoryBuilder;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTransactionFactory</span><span class="params">(TransactionFactory transactionFactory)</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">this</span>.transactionFactory = transactionFactory;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setEnvironment</span><span class="params">(String environment)</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">this</span>.environment = environment;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterPropertiesSet</span><span class="params">()</span></span></div><div class="line">    <span class="keyword">throws</span> Exception</div><div class="line">  &#123;</div><div class="line">    Assert.notNull(<span class="keyword">this</span>.dataSource, <span class="string">"Property 'dataSource' is required"</span>);</div><div class="line">    Assert.notNull(<span class="keyword">this</span>.sqlSessionFactoryBuilder, <span class="string">"Property 'sqlSessionFactoryBuilder' is required"</span>);</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.sqlSessionFactory = buildSqlSessionFactory();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">protected</span> SqlSessionFactory <span class="title">buildSqlSessionFactory</span><span class="params">()</span></span></div><div class="line">    <span class="keyword">throws</span> IOException</div><div class="line">  &#123;</div><div class="line">	logger.debug(<span class="string">"开始建立工厂"</span>);</div><div class="line">	System.out.println(logger.isDebugEnabled());</div><div class="line">    XMLConfigBuilder xmlConfigBuilder = <span class="keyword">null</span>;</div><div class="line">    Configuration configuration;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.configLocation != <span class="keyword">null</span>) &#123;</div><div class="line">      xmlConfigBuilder = <span class="keyword">new</span> XMLConfigBuilder(<span class="keyword">this</span>.configLocation.getInputStream(), <span class="keyword">null</span>, <span class="keyword">this</span>.configurationProperties);</div><div class="line">      configuration = xmlConfigBuilder.getConfiguration();</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</div><div class="line">        logger.debug(<span class="string">"Property 'configLocation' not specified, using default MyBatis Configuration"</span>);</div><div class="line">      &#125;</div><div class="line">      configuration = <span class="keyword">new</span> Configuration();</div><div class="line">      configuration.setVariables(<span class="keyword">this</span>.configurationProperties);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.objectFactory != <span class="keyword">null</span>) &#123;</div><div class="line">      configuration.setObjectFactory(<span class="keyword">this</span>.objectFactory);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.objectWrapperFactory != <span class="keyword">null</span>) &#123;</div><div class="line">      configuration.setObjectWrapperFactory(<span class="keyword">this</span>.objectWrapperFactory);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (StringUtils.hasLength(<span class="keyword">this</span>.typeAliasesPackage)) &#123;</div><div class="line">      String[] typeAliasPackageArray = StringUtils.tokenizeToStringArray(<span class="keyword">this</span>.typeAliasesPackage, <span class="string">",; \t\n"</span>);</div><div class="line"></div><div class="line">      <span class="keyword">for</span> (String packageToScan : typeAliasPackageArray) &#123;</div><div class="line"></div><div class="line">            <span class="comment">// 修改处：ThinkGem 修改实体类重名的时候抛出并打印异常，否则系统会一直递归造成无法启动</span></div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                configuration.getTypeAliasRegistry().registerAliases(packageToScan,</div><div class="line">                        typeAliasesSuperType == <span class="keyword">null</span> ? Object.class : typeAliasesSuperType);</div><div class="line">            &#125; <span class="keyword">catch</span> (Exception ex) &#123;</div><div class="line">                logger.error(<span class="string">"Scanned package: '"</span> + packageToScan + <span class="string">"' for aliases"</span>, ex);</div><div class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> NestedIOException(<span class="string">"Scanned package: '"</span> + packageToScan + <span class="string">"' for aliases"</span>, ex);</div><div class="line">            &#125; <span class="keyword">finally</span> &#123;</div><div class="line">                ErrorContext.instance().reset();</div><div class="line">            &#125;</div><div class="line">            <span class="comment">// 修改处：ThinkGem end</span></div><div class="line"></div><div class="line">        <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</div><div class="line">          logger.debug(<span class="string">"Scanned package: '"</span> + packageToScan + <span class="string">"' for aliases"</span>);</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (!ObjectUtils.isEmpty(<span class="keyword">this</span>.typeAliases)) &#123;</div><div class="line">      <span class="keyword">for</span> (Class typeAlias : <span class="keyword">this</span>.typeAliases) &#123;</div><div class="line">        configuration.getTypeAliasRegistry().registerAlias(typeAlias);</div><div class="line">        <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</div><div class="line">          logger.debug(<span class="string">"Registered type alias: '"</span> + typeAlias + <span class="string">"'"</span>);</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (!ObjectUtils.isEmpty(<span class="keyword">this</span>.plugins)) &#123;</div><div class="line">      <span class="keyword">for</span> (Interceptor plugin : <span class="keyword">this</span>.plugins) &#123;</div><div class="line">        configuration.addInterceptor(plugin);</div><div class="line">        <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</div><div class="line">          logger.debug(<span class="string">"Registered plugin: '"</span> + plugin + <span class="string">"'"</span>);</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (StringUtils.hasLength(<span class="keyword">this</span>.typeHandlersPackage)) &#123;</div><div class="line">      String[] typeHandlersPackageArray = StringUtils.tokenizeToStringArray(<span class="keyword">this</span>.typeHandlersPackage, <span class="string">",; \t\n"</span>);</div><div class="line"></div><div class="line">      <span class="keyword">for</span> (String packageToScan : typeHandlersPackageArray) &#123;</div><div class="line">        configuration.getTypeHandlerRegistry().register(packageToScan);</div><div class="line">        <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</div><div class="line">          logger.debug(<span class="string">"Scanned package: '"</span> + packageToScan + <span class="string">"' for type handlers"</span>);</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (!ObjectUtils.isEmpty(<span class="keyword">this</span>.typeHandlers)) &#123;</div><div class="line">      <span class="keyword">for</span> (TypeHandler typeHandler : <span class="keyword">this</span>.typeHandlers) &#123;</div><div class="line">        configuration.getTypeHandlerRegistry().register(typeHandler);</div><div class="line">        <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</div><div class="line">          logger.debug(<span class="string">"Registered type handler: '"</span> + typeHandler + <span class="string">"'"</span>);</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (xmlConfigBuilder != <span class="keyword">null</span>) &#123;</div><div class="line">      <span class="keyword">try</span> &#123;</div><div class="line">        xmlConfigBuilder.parse();</div><div class="line">        <span class="comment">// 修改处：ThinkGem 启动刷新MapperXML定时器（有助于开发者调试）。</span></div><div class="line">        logger.debug(<span class="string">"启动扫描线程"</span>);</div><div class="line">        <span class="keyword">new</span> MapperRefresh(<span class="keyword">this</span>.mapperLocations, configuration).run();</div><div class="line">        logger.debug(<span class="string">"线程初始化完毕"</span>);</div><div class="line">        <span class="keyword">if</span> (logger.isDebugEnabled())</div><div class="line">          logger.debug(<span class="string">"Parsed configuration file: '"</span> + <span class="keyword">this</span>.configLocation + <span class="string">"'"</span>);</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">catch</span> (Exception ex) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NestedIOException(<span class="string">"Failed to parse config resource: "</span> + <span class="keyword">this</span>.configLocation, ex);</div><div class="line">      &#125; <span class="keyword">finally</span> &#123;</div><div class="line">        ErrorContext.instance().reset();</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.transactionFactory == <span class="keyword">null</span>) &#123;</div><div class="line">      <span class="keyword">this</span>.transactionFactory = <span class="keyword">new</span> SpringManagedTransactionFactory();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    Environment environment = <span class="keyword">new</span> Environment(<span class="keyword">this</span>.environment, <span class="keyword">this</span>.transactionFactory, <span class="keyword">this</span>.dataSource);</div><div class="line">    configuration.setEnvironment(environment);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.databaseIdProvider != <span class="keyword">null</span>) &#123;</div><div class="line">      <span class="keyword">try</span> &#123;</div><div class="line">        configuration.setDatabaseId(<span class="keyword">this</span>.databaseIdProvider.getDatabaseId(<span class="keyword">this</span>.dataSource));</div><div class="line">      &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NestedIOException(<span class="string">"Failed getting a databaseId"</span>, e);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    logger.debug(<span class="string">"this.mapperLocations"</span> + <span class="keyword">this</span>.mapperLocations);</div><div class="line">    <span class="keyword">if</span> (!ObjectUtils.isEmpty(<span class="keyword">this</span>.mapperLocations)) &#123;</div><div class="line">      <span class="keyword">for</span> (Resource mapperLocation : <span class="keyword">this</span>.mapperLocations) &#123;</div><div class="line">        <span class="keyword">if</span> (mapperLocation == <span class="keyword">null</span>) &#123;</div><div class="line">          <span class="keyword">continue</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">try</span></div><div class="line">        &#123;</div><div class="line">          XMLMapperBuilder xmlMapperBuilder = <span class="keyword">new</span> XMLMapperBuilder(mapperLocation.getInputStream(), configuration, mapperLocation.toString(), configuration.getSqlFragments());</div><div class="line"></div><div class="line">          xmlMapperBuilder.parse();</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line"></div><div class="line">            <span class="comment">// 修改处：ThinkGem MapperXML有错误的时候抛出并打印异常，否则系统会一直递归造成无法启动</span></div><div class="line">            logger.error(<span class="string">"Failed to parse mapping resource: '"</span> + mapperLocation + <span class="string">"'"</span>, e);</div><div class="line"></div><div class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> NestedIOException(<span class="string">"Failed to parse mapping resource: '"</span> + mapperLocation + <span class="string">"'"</span>, e);</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">          ErrorContext.instance().reset();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</div><div class="line">          logger.debug(<span class="string">"Parsed mapper file: '"</span> + mapperLocation + <span class="string">"'"</span>);</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</div><div class="line">      logger.debug(<span class="string">"Property 'mapperLocations' was not specified or no matching resources found"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionFactoryBuilder.build(configuration);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> SqlSessionFactory <span class="title">getObject</span><span class="params">()</span></span></div><div class="line">    <span class="keyword">throws</span> Exception</div><div class="line">  &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.sqlSessionFactory == <span class="keyword">null</span>) &#123;</div><div class="line">      afterPropertiesSet();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionFactory;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">public</span> Class&lt;? extends SqlSessionFactory&gt; getObjectType()</div><div class="line">  &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionFactory == <span class="keyword">null</span> ? SqlSessionFactory.class : <span class="keyword">this</span>.sqlSessionFactory.getClass();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSingleton</span><span class="params">()</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onApplicationEvent</span><span class="params">(ApplicationEvent event)</span></span></div><div class="line">  &#123;</div><div class="line">    <span class="keyword">if</span> ((<span class="keyword">this</span>.failFast) &amp;&amp; ((event <span class="keyword">instanceof</span> ContextRefreshedEvent)))</div><div class="line">    &#123;</div><div class="line">      <span class="keyword">this</span>.sqlSessionFactory.getConfiguration().getMappedStatementNames();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li><p>接下来我们就需要把这个SqlSessionFactoryBean.java文件编译成class文件，然后再复制到mybatis-spring-1.2.2.jar包里面 ,替换方法：使用rar，zip，好压等解压缩工具打开jar包，直接把修改的class文件拖进去，覆盖原来的class文件。 </p>
+</li>
+<li><p>重新部署工程，修改mapper文件，实现热加载</p>
+</li>
+</ol>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><p>1） 参考资料中用的是纯SpringMVC工程，资源路径用的是mapperLocations 我们用的是Mven工程，资源路径用的是configLocation,所以启动线程不能放在mapperLocations初始化中，放在configLocation parse中</p>
+<p>2）    maven管理SpringMVC+Mybatis无法动态更新resource资源文件解决办法检查不到更新的的原因是，eclipse将其加载到了target下的classes     解决方案：简单粗暴 直接在扫描线程配置项目中mapper文件的绝对路径</p>
+<p><img src="\img\m3.png" alt="m3"></p>
+<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>​        热部署脚本尚处于实验期，各位开发同仁请本着小白鼠心态使用，试用期间出现的系统bug或者crash，本人不负法律责任~~</p>
+</li>
+</ol>
+<!--more-->
+                
+
+
+<p class="pink-link-context">
+    <a href="/2017/06/15/JVM内存回收浅析/" rel="next" title="JVM内存回收浅析">
+    下一篇：JVM内存回收浅析
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1"  data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="http://weibo.com/1956184117" target="_blank">
+                        <i class="fa fa-2x fa-weibo"></i>
+                    </a>
+                
+                    <a class="social-link" href="https://github.com/raytaylorlin" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="/atom.xml" target="_blank">
+                        <i class="fa fa-2x fa-rss"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+            <div class="col m8 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="http://raytaylorlin.com/" target="_blank">raytaylorism主题作者的技术博客</a>
+                
+                    <a class="social-link" href="https://github.com/raytaylorlin" target="_blank">Github地址（测试友情链接）</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('.menu-reading, .menu-about').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>
