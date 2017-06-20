@@ -1,0 +1,754 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>架构探险---搭建轻量级MVC框架 | Just Do IT</title>
+    <meta name="author" content="Andy">
+    
+    <meta name="description" content="♥Follow your heart, Live better♥">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="架构探险---搭建轻量级MVC框架"/>
+    <meta property="og:site_name" content="Andy&#39;s Blob"/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="Andy&#39;s Blob" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">Andy&#39;s Blob</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading" >
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://or21uqr9s.bkt.clouddn.com/1.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">Andy</p>
+                        <p class="desc">Java/Android/C</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading" >
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Spring/">
+                    Spring <span class="right">4 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Spring/AOP/">
+                    AOP <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Spring/mysql/">
+                    mysql <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Spring/Exception/">
+                    Exception <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Spring/framework/">
+                    framework <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/JVM/">
+                    JVM <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/JVM/内存回收/">
+                    内存回收 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/IM/">
+                    IM <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/IM/openfire/">
+                    openfire <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Maven/">
+                    Maven <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Maven/部署/">
+                    部署 <span class="right">2 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Maven/config/">
+                    config <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Mybatis/">
+                    Mybatis <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Mybatis/热部署/">
+                    热部署 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Java/">
+                    Java <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Java/tool/">
+                    tool <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/支付系统/">
+                    支付系统 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/支付系统/系统架构/">
+                    系统架构 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/Spring/">Spring</a><a class="breadcrumb" href="/categories/Spring/framework/">framework</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>架构探险---搭建轻量级MVC框架</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2017-06-20T02:39:22.000Z"><a href="/2017/06/20/架构探险-自己动手写框架/">2017-06-20</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/Ioc/" class="chip pink lighten-1">Ioc</a>
+        
+            <a href="/tags/DI/" class="chip pink lighten-1">DI</a>
+        
+            <a href="/tags/loader/" class="chip pink lighten-1">loader</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#笔记-架构探险—搭建轻量级MVC框架"><span class="section table-of-contents-text">[笔记]架构探险—搭建轻量级MVC框架</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#现象描述"><span class="section table-of-contents-text">现象描述</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#基本流程"><span class="section table-of-contents-text">基本流程</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#疑点汇总"><span class="section table-of-contents-text">疑点汇总</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#流程梳理"><span class="section table-of-contents-text">流程梳理</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#IOC机制实现"><span class="section table-of-contents-text">IOC机制实现</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#1-根据注解，生成Bean容器"><span class="section table-of-contents-text">1.根据注解，生成Bean容器</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-根据Inject注解，将testService注入"><span class="section table-of-contents-text">2.根据Inject注解，将testService注入</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#3-根据Action注解，路径绑定"><span class="section table-of-contents-text">3.根据Action注解，路径绑定</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#4初始化框架"><span class="section table-of-contents-text">4初始化框架</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#请求转发器"><span class="section table-of-contents-text">请求转发器</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#总结"><span class="section table-of-contents-text">总结</span></a></li></ol></li></ol></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <h1 id="笔记-架构探险—搭建轻量级MVC框架"><a href="#笔记-架构探险—搭建轻量级MVC框架" class="headerlink" title="[笔记]架构探险—搭建轻量级MVC框架"></a>[笔记]架构探险—搭建轻量级MVC框架</h1><p>​        项目中一直在用SpringMVC开发，说实话，本屌的功底还是仅仅停留在会用和基本原理懂一点的地步，之前准备啃啃Spring的源码，奈何自己牙口不是很好，牙齿不够锋利，啃的速度较慢，于是在同事的推荐下，接触了《架构探险从零开始写JavaWeb框架》这本书，对于一个技术人员，书中的内容通俗易懂，深入浅出，能让每个技术能力、层次不同的开发人员看过之后醍醐灌顶，如沐春风。</p>
+<a id="more"></a>
+<h2 id="现象描述"><a href="#现象描述" class="headerlink" title="现象描述"></a>现象描述</h2><h3 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h3><p>​            1.在浏览器输入<a href="http://127.0.0.1:8090/test_pro/test?parm=1&amp;parm=2" target="_blank" rel="external">http://127.0.0.1:8090/test_pro/test?parm=1&amp;parm=2</a></p>
+<p>​            2.后台controller接收请求，进行处理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">         <span class="keyword">package</span> org.andy.test;</div><div class="line"></div><div class="line"><span class="meta">@Controller</span></div><div class="line">         <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</div><div class="line">             <span class="meta">@Inject</span></div><div class="line">             <span class="keyword">private</span> testService testService;</div><div class="line"></div><div class="line">             <span class="meta">@Action</span>(<span class="string">"get:/test"</span>)</div><div class="line">             <span class="function"><span class="keyword">public</span> View <span class="title">test</span><span class="params">(Param param)</span></span>&#123;</div><div class="line">                 printf(param);</div><div class="line">                 <span class="keyword">return</span> <span class="keyword">new</span> View(<span class="string">"test.jsp"</span>);</div><div class="line">             &#125;</div><div class="line">         &#125;</div></pre></td></tr></table></figure>
+<p>​             3.处理完毕跳转到test,jsp页面</p>
+<h3 id="疑点汇总"><a href="#疑点汇总" class="headerlink" title="疑点汇总"></a>疑点汇总</h3><p>​            简言之，后台是如何接收到前端请求，如何进行页面跳转。</p>
+<h2 id="流程梳理"><a href="#流程梳理" class="headerlink" title="流程梳理"></a>流程梳理</h2><p>​    框架在实现IOC（Inversion of Control，控制反转）的时候，通过框架自身来示例化Bean。</p>
+<h3 id="IOC机制实现"><a href="#IOC机制实现" class="headerlink" title="IOC机制实现"></a>IOC机制实现</h3><p>​    在进行IOC之前，首先需要生成一个类加载器来加载特定的处理类，比如TestController,类加载器代码如下，功能很简单，将org.andy.test包下的所有class放入Bean容器中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by andy on 2017/06/18.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassUtil</span> </span>&#123;</div><div class="line">  <span class="comment">/**</span></div><div class="line">     * 获取指定包下面的所有类</div><div class="line">     * &lt;p/&gt;</div><div class="line">     * 根据包名并将其转化为文件路径</div><div class="line">     * 读取class文件或jar 包</div><div class="line">     * 获取指定的类名去加载类。</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> packageName</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Set&lt;Class&lt;?&gt;&gt; getClassSet(String packageName) <span class="keyword">throws</span> IOException &#123;</div><div class="line">       Set&lt;Class&lt;?&gt;&gt; classSet = <span class="keyword">new</span> HashSet&lt;Class&lt;?&gt;&gt;();</div><div class="line">        String packageDirName = packageName.replace(<span class="string">"."</span>,<span class="string">"/"</span>);</div><div class="line">        Enumeration&lt;URL&gt; urls = Thread.currentThread().getContextClassLoader().getResources(packageDirName);</div><div class="line">        <span class="keyword">while</span> (urls.hasMoreElements()) &#123;</div><div class="line">            URL url = urls.nextElement();</div><div class="line">            <span class="comment">//System.out.println("urls is ：" + url.toString());</span></div><div class="line">            <span class="keyword">if</span> (url != <span class="keyword">null</span>) &#123;</div><div class="line">                String protocol = url.getProtocol();</div><div class="line">                System.out.println(<span class="string">"url.getPath() is ："</span> + url.getPath() );</div><div class="line">                <span class="keyword">if</span> (protocol.equals(<span class="string">"file"</span>)) &#123;</div><div class="line">                    String packagePath = url.getPath().replace(<span class="string">"%20"</span>, <span class="string">""</span>);</div><div class="line"></div><div class="line">                    addClass(classSet, packagePath, packageName);</div><div class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (protocol.equals(<span class="string">"jar"</span>)) &#123;</div><div class="line">                    <span class="keyword">try</span> &#123;</div><div class="line">                        JarURLConnection jarURLConnection = (JarURLConnection) url.openConnection();</div><div class="line">                        <span class="keyword">if</span> (jarURLConnection != <span class="keyword">null</span>) &#123;</div><div class="line">                            JarFile jarFile = jarURLConnection.getJarFile();</div><div class="line">                            <span class="keyword">if</span> (jarFile != <span class="keyword">null</span>) &#123;</div><div class="line">                                Enumeration&lt;JarEntry&gt; jarEntryEnumeration = jarFile.entries();</div><div class="line">                                <span class="keyword">while</span> (jarEntryEnumeration.hasMoreElements()) &#123;</div><div class="line">                                    JarEntry jarEntry = jarEntryEnumeration.nextElement();</div><div class="line">                                    String jarEntryName = jarEntry.getName();</div><div class="line">                                    <span class="keyword">if</span> (jarEntryName.endsWith(<span class="string">".class"</span>)) &#123;</div><div class="line">                                        String className = jarEntryName.substring(<span class="number">0</span>, jarEntryName.lastIndexOf(<span class="string">"."</span>)).replaceAll(<span class="string">"/"</span>, <span class="string">"."</span>);</div><div class="line">                                        doAddClass(classSet, className);</div><div class="line">                                    &#125;</div><div class="line">                                &#125;</div><div class="line"></div><div class="line">                            &#125;</div><div class="line">                        &#125;</div><div class="line">                    &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">                        e.printStackTrace();</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> classSet;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="1-根据注解，生成Bean容器"><a href="#1-根据注解，生成Bean容器" class="headerlink" title="1.根据注解，生成Bean容器"></a>1.根据注解，生成Bean容器</h4><p>​    我们将controller和service注解的类理解为我们框架能够管理的类，所以我们在BeanHelper类中增加一个获取应用包名下所有Bean的方法，代码实现如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by andy on 2017/06/18.</div><div class="line"> * bean 容器</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeanHelper</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 1. 生成bean实例</div><div class="line">     * 2. 获取bean示例</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Map&lt;Class&lt;?&gt;,Object&gt; BEAN_MAP = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line"></div><div class="line">    <span class="keyword">static</span> &#123;</div><div class="line">        Set&lt;Class&lt;?&gt;&gt; beanClassSet = ClassHelper.getBeanClassSet();</div><div class="line">        <span class="keyword">for</span> (Class&lt;?&gt; c : beanClassSet) &#123;</div><div class="line">            BEAN_MAP.put(c, ReflectionUtil.newInstance(c));  </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/** bean 容器**/</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Map&lt;Class&lt;?&gt;, Object&gt; getBeanMap() &#123;</div><div class="line">        <span class="keyword">return</span> BEAN_MAP;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/** 获取bean**/</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">getBean</span><span class="params">(Class&lt;T&gt; cls)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(!BEAN_MAP.containsKey(cls))&#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"can not get bean by class : "</span> + cls);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> (T) BEAN_MAP.get(cls);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="2-根据Inject注解，将testService注入"><a href="#2-根据Inject注解，将testService注入" class="headerlink" title="2.根据Inject注解，将testService注入"></a>2.根据Inject注解，将testService注入</h4><p>​        service目前是通过new的方式来创建的，这样导致一个应用中会创建多个对象，这样是不科学的。我们可以通过一种“依赖注入”的思想，让框架来为我们创建所需要的对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by andy on 2016/06/18.</div><div class="line"> * ioc 依赖注入</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IocHelper</span> </span>&#123;</div><div class="line">    <span class="keyword">static</span>&#123;</div><div class="line">        Map&lt;Class&lt;?&gt;, Object&gt; beanMap = BeanHelper.getBeanMap(); <span class="comment">//框架需要管理的bean映射</span></div><div class="line">        <span class="keyword">if</span>(MapUtils.isNotEmpty(beanMap))&#123;</div><div class="line">            <span class="keyword">for</span>(Map.Entry&lt;Class&lt;?&gt;, Object&gt; ent : beanMap.entrySet())&#123;</div><div class="line">                Class&lt;?&gt; beanCls = ent.getKey();</div><div class="line">                Object beanInstance = ent.getValue();</div><div class="line">                Field[] beanFields = beanCls.getDeclaredFields();</div><div class="line">                <span class="keyword">for</span> (Field beanField : beanFields) &#123;</div><div class="line">                    <span class="comment">//判断 该字段是否 包含 inject注解</span></div><div class="line">                    <span class="keyword">if</span>(beanField.isAnnotationPresent(Inject.class))&#123;</div><div class="line">                        Class&lt;?&gt; beanFieldType = beanField.getType(); <span class="comment">//声明类型 成员变量的Class</span></div><div class="line">                        Object beanFieldInstance = beanMap.get(beanFieldType); </div><div class="line">                        <span class="keyword">if</span>(beanFieldInstance != <span class="keyword">null</span>)&#123;</div><div class="line">                            <span class="comment">//通过反射注入service实例</span></div><div class="line">                            ReflectionUtil.setField(beanInstance,beanField,beanFieldInstance);</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="3-根据Action注解，路径绑定"><a href="#3-根据Action注解，路径绑定" class="headerlink" title="3.根据Action注解，路径绑定"></a>3.根据Action注解，路径绑定</h4><ol>
+<li><p>获取@action配置的信息,封装成一个request请求对象</p>
+</li>
+<li><p>封装该@action对应的方法和class对象 ,封装成一个hander处理对象</p>
+</li>
+<li><p>然后 把 request 和 hander 映射存起来,以供我们可以通过 页面发出的请求 封装成 request对象 找到对应的 hander 处理方法.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 控制器助手类</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ControllerHelper</span> </span>&#123;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 用于存放请求与处理器的映射关系（简称Action Map）</div><div class="line">	 */</div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Map&lt;Request, Handler&gt; ACTION_MAP = <span class="keyword">new</span> HashMap&lt;Request, Handler&gt;();</div><div class="line">	<span class="keyword">static</span> &#123;</div><div class="line">		<span class="comment">//获取所有的Controller类</span></div><div class="line">		Set&lt;Class&lt;?&gt;&gt; controllerClassSet = ClassHelper.getControllerClassSet();</div><div class="line">		<span class="keyword">if</span> (CollectionUtil.isNotEmpty(controllerClassSet)) &#123;</div><div class="line">			<span class="comment">//遍历这些Controller类</span></div><div class="line">			<span class="keyword">for</span> (Class&lt;?&gt; controllerClass : controllerClassSet) &#123;</div><div class="line">				<span class="comment">//获取Controller类中定义的方法</span></div><div class="line">				Method[] methods = controllerClass.getDeclaredMethods();</div><div class="line">				<span class="keyword">if</span> (ArrayUtil.isNotEmpty(methods)) &#123;</div><div class="line">					<span class="comment">//遍历这些Controller类中定义的方法</span></div><div class="line">					<span class="keyword">for</span> (Method method : methods) &#123;</div><div class="line">						<span class="comment">//判断当前方法中是否带有action注解</span></div><div class="line">						<span class="keyword">if</span> (method.isAnnotationPresent(Action.class)) &#123;</div><div class="line">							<span class="comment">//从action注解中获取Url映射规则</span></div><div class="line">							Action action = method.getAnnotation(Action.class);</div><div class="line">							String mapping = action.value();</div><div class="line">							<span class="comment">//验证Url映射规则</span></div><div class="line">							<span class="keyword">if</span> (mapping.matches(<span class="string">"\\w+:/\\w*"</span>)) &#123;</div><div class="line">								String[] array = mapping.split(<span class="string">":"</span>);</div><div class="line">								<span class="keyword">if</span> (ArrayUtil.isNotEmpty(array) &amp;&amp; array.length == <span class="number">2</span>) &#123;</div><div class="line">									<span class="comment">//获取请求方法与请求路径</span></div><div class="line">									String requestMethod = array[<span class="number">0</span>];</div><div class="line">									String requestPath = array[<span class="number">1</span>];</div><div class="line">									Request request = <span class="keyword">new</span> Request(requestMethod, requestPath);</div><div class="line">									Handler handler = <span class="keyword">new</span> Handler(controllerClass, method);</div><div class="line">									<span class="comment">//初始化Action Map</span></div><div class="line">									ACTION_MAP.put(request, handler);</div><div class="line">								&#125;</div><div class="line">							&#125;</div><div class="line">						&#125;</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 获取 Handler</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Handler <span class="title">getHandler</span><span class="params">(String requestMethod, String requestPath)</span> </span>&#123;</div><div class="line">		Request request = <span class="keyword">new</span> Request(requestMethod, requestPath);</div><div class="line">		<span class="keyword">return</span> ACTION_MAP.get(request);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="4初始化框架"><a href="#4初始化框架" class="headerlink" title="4初始化框架"></a>4初始化框架</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 加载相应的 Helper 类</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">HelperLoader</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</div><div class="line">		Class&lt;?&gt;[] classList = &#123;</div><div class="line">			ClassHelper.class,</div><div class="line">			BeanHelper.class,</div><div class="line">			AopHelper.class,</div><div class="line">			IocHelper.class,</div><div class="line">			ControllerHelper.class</div><div class="line">		&#125;;</div><div class="line">		<span class="keyword">for</span> (Class&lt;?&gt; cls : classList) &#123;</div><div class="line">			ClassUtil.loadClass(cls.getName());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>​</p>
+<h3 id="请求转发器"><a href="#请求转发器" class="headerlink" title="请求转发器"></a>请求转发器</h3><p>以上过程都是在为这一步做准备。我们现在需要写一个Servlet，让他处理所有的请求。</p>
+<p>思路：从HttpServletRequest对象中获取请求方法与请求路径，通过ControllerHelper的getHandler方法来获取handler对象。当拿到Handler对象后，我们可以方便的获取Controller的类，通过BeanHelper的getBean方法获取Controller的实例对象。随后可以从HttpServletRequest对象中的所有请求参数，并将其初始化到一个param的对象中。实现流程图如下：</p>
+<p><img src="\img\dispatcherServlet.png" alt="dispatcherServlet"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 请求转发器</div><div class="line"> */</div><div class="line"><span class="meta">@WebServlet</span>(urlPatterns = <span class="string">"/*"</span>, loadOnStartup = <span class="number">0</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DispatcherServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(ServletConfig servletConfig)</span> <span class="keyword">throws</span> ServletException </span>&#123;</div><div class="line">		<span class="comment">//初始化相关的Helper类</span></div><div class="line">		HelperLoader.init();</div><div class="line">		<span class="comment">//获取ServletContext对象（用于注册Servlet）</span></div><div class="line">		ServletContext servletContext = servletConfig.getServletContext();</div><div class="line">		<span class="comment">//注册Servlet</span></div><div class="line">		registerServlet(servletContext);</div><div class="line">		UploadHelper.init(servletContext);</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">registerServlet</span><span class="params">(ServletContext servletContext)</span> </span>&#123;</div><div class="line">		<span class="comment">//注册处理JSP的servlet</span></div><div class="line">		ServletRegistration jspServlet = servletContext.getServletRegistration(<span class="string">"jsp"</span>);</div><div class="line">		jspServlet.addMapping(<span class="string">"/index.jsp"</span>);</div><div class="line">		jspServlet.addMapping(ConfigHelper.getAppJspPath() + <span class="string">"*"</span>);</div><div class="line">		<span class="comment">//注册处理静态资源的默认的servlet</span></div><div class="line">		ServletRegistration defaultServlet = servletContext.getServletRegistration(<span class="string">"default"</span>);</div><div class="line">		defaultServlet.addMapping(<span class="string">"/favicon.ico"</span>);</div><div class="line">		defaultServlet.addMapping(ConfigHelper.getAppAssetPath() + <span class="string">"*"</span>);</div><div class="line">	&#125;</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">		ServletHelper.init(request, response);</div><div class="line">		<span class="keyword">try</span> &#123;</div><div class="line">			<span class="comment">//获取请求方法与请求路径</span></div><div class="line">			String requestMethod = request.getMethod().toLowerCase();</div><div class="line">			String requestPath = request.getPathInfo();</div><div class="line">			<span class="comment">//获取Action处理器</span></div><div class="line">			Handler handler = ControllerHelper.getHandler(requestMethod, requestPath);</div><div class="line">			<span class="keyword">if</span> (handler != <span class="keyword">null</span>) &#123;</div><div class="line">				<span class="comment">//获取Controller类机器Bean实例</span></div><div class="line">				Class&lt;?&gt; controllerClass = handler.getControllerClass();</div><div class="line">				Object controllerBean = BeanHelper.getBean(controllerClass);</div><div class="line">				<span class="comment">//创建请求参数对象</span></div><div class="line">				Param param;</div><div class="line">				<span class="keyword">if</span> (UploadHelper.isMultipart(request)) &#123;</div><div class="line">					param = UploadHelper.createParam(request);</div><div class="line">				&#125; <span class="keyword">else</span> &#123;</div><div class="line">					param = RequestHelper.createParam(request);</div><div class="line">				&#125;</div><div class="line">				<span class="comment">//调用Action方法</span></div><div class="line">				Object result;</div><div class="line">				Method actionMethod = handler.getActionMethod();</div><div class="line">				<span class="keyword">if</span> (param.isEmpty()) &#123;</div><div class="line">					result = ReflectionUtil.invokeMethod(controllerBean, actionMethod);</div><div class="line">				&#125; <span class="keyword">else</span> &#123;</div><div class="line">					result = ReflectionUtil.invokeMethod(controllerBean, actionMethod, param);</div><div class="line">				&#125;</div><div class="line">				<span class="comment">//处理Action返回值</span></div><div class="line">				<span class="keyword">if</span> (result <span class="keyword">instanceof</span> View) &#123;</div><div class="line">					handleViewResult((View) result, request, response);</div><div class="line">				&#125; <span class="keyword">else</span> <span class="keyword">if</span> (result <span class="keyword">instanceof</span> Data) &#123;</div><div class="line">					handleDataResult((Data) result, response);</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125; <span class="keyword">finally</span> &#123;</div><div class="line">			ServletHelper.destroy();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">handleViewResult</span><span class="params">(View view, HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</div><div class="line">		String path = view.getPath();</div><div class="line">		<span class="keyword">if</span> (StringUtil.isNotEmpty(path)) &#123;</div><div class="line">			<span class="keyword">if</span> (path.startsWith(<span class="string">"/"</span>)) &#123;</div><div class="line">				response.sendRedirect(request.getContextPath() + path);</div><div class="line">			&#125; <span class="keyword">else</span> &#123;</div><div class="line">				Map&lt;String, Object&gt; model = view.getModel();</div><div class="line">				<span class="keyword">for</span> (Map.Entry&lt;String, Object&gt; entry : model.entrySet()) &#123;</div><div class="line">					request.setAttribute(entry.getKey(), entry.getValue());</div><div class="line">				&#125;</div><div class="line">				request.getRequestDispatcher(ConfigHelper.getAppJspPath() + path).forward(request, response);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">handleDataResult</span><span class="params">(Data data, HttpServletResponse response)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">		Object model = data.getModel();</div><div class="line">		<span class="keyword">if</span> (model != <span class="keyword">null</span>) &#123;</div><div class="line">			response.setContentType(<span class="string">"application/json"</span>);</div><div class="line">			response.setCharacterEncoding(<span class="string">"UTF-8"</span>);</div><div class="line">			PrintWriter writer = response.getWriter();</div><div class="line">			String json = JsonUtil.toJson(model);</div><div class="line">			writer.write(json);</div><div class="line">			writer.flush();</div><div class="line">			writer.close();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过这个DispatcherServlet来处理所有的请求，根据请求信息从ControllerHelper中获取对应的Action方法，然后通过<strong>反射技术</strong>调用Action方法，同时需要具体的传入方法参数，最后拿到返回值并判断返回值的类型，进行相应的处理。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​        在这一章，搭建了一个简单的MVC框架，定义了一系列的注解；通过一系列的Helper类来初始化MVC框架；通过DispatcherServlet来处理所有的请求；根据请求方法和请求路径来来调用具体的Action方法，判断Action方法的返回值，若为View类型，则调转到JSP页面，若为Data类型，则返回json数据。</p>
+</li>
+</ol>
+<!--more-->
+                
+
+
+<p class="pink-link-context">
+    <a href="/2017/06/15/Mybatis热部署/" rel="next" title="Mybatis热部署">
+    下一篇：Mybatis热部署
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1"  data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="http://weibo.com/1956184117" target="_blank">
+                        <i class="fa fa-2x fa-weibo"></i>
+                    </a>
+                
+                    <a class="social-link" href="https://github.com/raytaylorlin" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="/atom.xml" target="_blank">
+                        <i class="fa fa-2x fa-rss"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+            <div class="col m8 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="http://raytaylorlin.com/" target="_blank">raytaylorism主题作者的技术博客</a>
+                
+                    <a class="social-link" href="https://github.com/raytaylorlin" target="_blank">Github地址（测试友情链接）</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('.menu-reading, .menu-about').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>
