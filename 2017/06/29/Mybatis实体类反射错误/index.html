@@ -7,7 +7,7 @@
 
     
 
-    <title>jar包冲突 | Just Do IT</title>
+    <title>Mybatis实体类反射错误 | Just Do IT</title>
     <meta name="author" content="Andy">
     
     <meta name="description" content="♥Follow your heart, Live better♥">
@@ -15,7 +15,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    
+    <meta property="og:title" content="Mybatis实体类反射错误"/>
     <meta property="og:site_name" content="Andy&#39;s Blob"/>
 
     
@@ -345,42 +345,90 @@
 
     <main>
         <div class="container main-container">
-    
-
-<nav class="page-nav hide-on-small-only">
+    <nav class="page-nav hide-on-small-only">
     <div class="nav-wrapper indigo">
-        <span class="breadcrumb">当前位置（标签）</span>
+        <span class="breadcrumb">当前位置（分类目录）</span>
         
+            
+    
+    
+    <a class="breadcrumb" href="/categories/Mybatis/">Mybatis</a><a class="breadcrumb" href="/categories/Mybatis/reflect/">reflect</a>
+
 
         
-            <a class="breadcrumb" href="/tags/jar包冲突/">jar包冲突</a>
+
         
     </div>
 </nav>
 
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>Mybatis实体类反射错误</h1>
+    
 
 
-    <div class="collection mt-0">
+            </div>
+            <time class="pink-link-context" datetime="2017-06-29T08:06:03.000Z"><a href="/2017/06/29/Mybatis实体类反射错误/">2017-06-29</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
         
-            <a href="/2017/06/13/Tomcat部署失败 /" class="collection-item grey-text text-darken-1">
-                <time datetime="2017-06-13T01:18:53.000Z">2017-06-13</time>
-                <span>&nbsp;&nbsp;&nbsp;</span>
-                tomcat部署项目失败
-            </a>
+            <a href="/tags/mybatis/" class="chip pink lighten-1">mybatis</a>
         
-            <a href="/2017/06/09/Jar包冲突/" class="collection-item grey-text text-darken-1">
-                <time datetime="2017-06-09T01:18:53.000Z">2017-06-09</time>
-                <span>&nbsp;&nbsp;&nbsp;</span>
-                Maven依赖jar包冲突解决
-            </a>
-        
-            <a href="/2017/06/09/Maven启动异常 - 副本/" class="collection-item grey-text text-darken-1">
-                <time datetime="2017-06-09T01:18:53.000Z">2017-06-09</time>
-                <span>&nbsp;&nbsp;&nbsp;</span>
-                tomcat部署项目失败
-            </a>
+            <a href="/tags/reflect/" class="chip pink lighten-1">reflect</a>
         
     </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#Mybatis实体类反射错误"><span class="section table-of-contents-text">Mybatis实体类反射错误</span></a></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <h1 id="Mybatis实体类反射错误"><a href="#Mybatis实体类反射错误" class="headerlink" title="Mybatis实体类反射错误"></a>Mybatis实体类反射错误</h1><pre><code>MyBatis中的实体类一旦给它构造方法，使用就会报“nested exception is org.apache.ibatis.reflection.ReflectionException: Error instantiating class ”错误
+</code></pre><a id="more"></a>
+<p>1.实体类代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 还款结果通知对象</div><div class="line"> * </div><div class="line"> * <span class="doctag">@author</span> andy</div><div class="line"> *</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TELoanRefund</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">22921675482882L</span>;</div><div class="line">	</div><div class="line">	<span class="keyword">private</span> java.lang.Integer id;</div><div class="line">	<span class="keyword">private</span> java.lang.String group_id;</div><div class="line">	<span class="keyword">private</span> java.lang.String loan_id;</div><div class="line">	<span class="keyword">private</span> java.lang.Integer period_number;</div><div class="line">	<span class="keyword">private</span> java.util.Date due_date;</div><div class="line">	<span class="keyword">private</span> java.math.BigDecimal due_capital;</div><div class="line">	<span class="keyword">private</span> java.math.BigDecimal due_interest;</div><div class="line">	<span class="keyword">private</span> java.math.BigDecimal due_amount;</div><div class="line">	<span class="keyword">private</span> java.lang.String loan_refund_result;</div><div class="line">	<span class="keyword">private</span> java.lang.String loan_refund_reason;</div><div class="line">	<span class="keyword">private</span> java.util.Date loan_refund_date;</div><div class="line">	<span class="keyword">private</span> java.math.BigDecimal loan_refund_amount;</div><div class="line">	<span class="keyword">private</span> java.math.BigDecimal refund_capital;</div><div class="line">	<span class="keyword">private</span> java.math.BigDecimal refund_interest;</div><div class="line">	<span class="keyword">private</span> java.math.BigDecimal refund_commission;</div><div class="line">	<span class="keyword">private</span> java.math.BigDecimal refund_default_interest;</div><div class="line">	<span class="keyword">private</span> java.math.BigDecimal amount;</div><div class="line">	<span class="keyword">private</span> java.lang.String refund_flag;</div><div class="line">	<span class="keyword">private</span> java.lang.String refund_type;</div><div class="line">	<span class="keyword">private</span> java.lang.Integer create_by;</div><div class="line">	<span class="keyword">private</span> java.util.Date create_date;</div><div class="line">	<span class="keyword">private</span> java.lang.Integer update_by;</div><div class="line">	<span class="keyword">private</span> java.util.Date update_date;</div><div class="line">	<span class="keyword">private</span> java.lang.String delflag;</div><div class="line">	<span class="keyword">private</span> java.util.Date del_date;</div><div class="line"></div><div class="line">	<span class="comment">//带参构造函数</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">TELoanRefund</span><span class="params">(java.lang.String group_id)</span></span>&#123;</div><div class="line">	    <span class="keyword">this</span>.group_id = group_id;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>2.单元测试，构建查询语句</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSelectTELoanRefundByPrimaryKey</span><span class="params">()</span> </span>&#123;</div><div class="line">    TELoanRefund needUpdateOrder = service.selectTELoanRefundByPrimaryKey(<span class="number">91</span>);</div><div class="line">    assertTrue(needUpdateOrder!=<span class="keyword">null</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>3.执行异常，错误调用栈如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Caused by: java.lang.NoSuchMethodException: com.xxx.xxx.xxxx.pojo.TELoanRefund.&lt;init&gt;()</div><div class="line">	at java.lang.Class.getConstructor0(Class.java:2810)</div><div class="line">	at java.lang.Class.getDeclaredConstructor(Class.java:2053)</div><div class="line">	at org.apache.ibatis.reflection.factory.DefaultObjectFactory.instantiateClass(DefaultObjectFactory.java:60)</div><div class="line">	... 68 more</div></pre></td></tr></table></figure>
+<p>4.异常定位</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">实体类必须有一个无参构造方法，否则java通过反射找不到这个类 导致不能实例化</div></pre></td></tr></table></figure>
+<p>5.追加无参构造参数，重新执行，单元测试通过。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//无参构造函数</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">TELoanRefund</span><span class="params">()</span></span>&#123;</div><div class="line">      </div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<!--more-->
+                
+
+
+<p class="pink-link-context">
+    <a href="/2017/06/20/架构探险-自己动手写框架/" rel="next" title="架构探险---搭建轻量级MVC框架">
+    下一篇：架构探险---搭建轻量级MVC框架
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
 
 
 </div>
