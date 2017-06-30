@@ -227,16 +227,24 @@
         
 
             <li class="collapse-level-0" collapse-level="0">
-                <a class="no-padding" href="/categories/Maven/">
-                    Maven <span class="right">3 篇</span></a>
+                <a class="no-padding" href="/categories/JVM/">
+                    JVM <span class="right">1 篇</span></a>
                 </a>
             </li>
 
         
 
             <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/Maven/config/">
-                    config <span class="right">1 篇</span></a>
+                <a class="no-padding" href="/categories/JVM/内存回收/">
+                    内存回收 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Maven/">
+                    Maven <span class="right">3 篇</span></a>
                 </a>
             </li>
 
@@ -250,17 +258,9 @@
 
         
 
-            <li class="collapse-level-0" collapse-level="0">
-                <a class="no-padding" href="/categories/JVM/">
-                    JVM <span class="right">1 篇</span></a>
-                </a>
-            </li>
-
-        
-
             <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/JVM/内存回收/">
-                    内存回收 <span class="right">1 篇</span></a>
+                <a class="no-padding" href="/categories/Maven/config/">
+                    config <span class="right">1 篇</span></a>
                 </a>
             </li>
 
@@ -397,8 +397,8 @@
 
 
             <div class="entry pink-link-context">
-                <h1 id="Mybatis实体类反射错误"><a href="#Mybatis实体类反射错误" class="headerlink" title="Mybatis实体类反射错误"></a>Mybatis实体类反射错误</h1><pre><code>MyBatis中的实体类一旦给它构造方法，使用就会报“nested exception is org.apache.ibatis.reflection.ReflectionException: Error instantiating class ”错误
-</code></pre><a id="more"></a>
+                <h1 id="Mybatis实体类反射错误"><a href="#Mybatis实体类反射错误" class="headerlink" title="Mybatis实体类反射错误"></a>Mybatis实体类反射错误</h1><p>​        MyBatis中的实体类一旦给它构造方法，使用就会报“nested exception is org.apache.ibatis.reflection.ReflectionException: Error instantiating class ”错误</p>
+<a id="more"></a>
 <p>1.实体类代码</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 还款结果通知对象</div><div class="line"> * </div><div class="line"> * <span class="doctag">@author</span> andy</div><div class="line"> *</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TELoanRefund</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">22921675482882L</span>;</div><div class="line">	</div><div class="line">	<span class="keyword">private</span> java.lang.Integer id;</div><div class="line">	<span class="keyword">private</span> java.lang.String group_id;</div><div class="line">	<span class="keyword">private</span> java.lang.String loan_id;</div><div class="line">	<span class="keyword">private</span> java.lang.Integer period_number;</div><div class="line">	<span class="keyword">private</span> java.util.Date due_date;</div><div class="line">	<span class="keyword">private</span> java.math.BigDecimal due_capital;</div><div class="line">	<span class="keyword">private</span> java.math.BigDecimal due_interest;</div><div class="line">	<span class="keyword">private</span> java.math.BigDecimal due_amount;</div><div class="line">	<span class="keyword">private</span> java.lang.String loan_refund_result;</div><div class="line">	<span class="keyword">private</span> java.lang.String loan_refund_reason;</div><div class="line">	<span class="keyword">private</span> java.util.Date loan_refund_date;</div><div class="line">	<span class="keyword">private</span> java.math.BigDecimal loan_refund_amount;</div><div class="line">	<span class="keyword">private</span> java.math.BigDecimal refund_capital;</div><div class="line">	<span class="keyword">private</span> java.math.BigDecimal refund_interest;</div><div class="line">	<span class="keyword">private</span> java.math.BigDecimal refund_commission;</div><div class="line">	<span class="keyword">private</span> java.math.BigDecimal refund_default_interest;</div><div class="line">	<span class="keyword">private</span> java.math.BigDecimal amount;</div><div class="line">	<span class="keyword">private</span> java.lang.String refund_flag;</div><div class="line">	<span class="keyword">private</span> java.lang.String refund_type;</div><div class="line">	<span class="keyword">private</span> java.lang.Integer create_by;</div><div class="line">	<span class="keyword">private</span> java.util.Date create_date;</div><div class="line">	<span class="keyword">private</span> java.lang.Integer update_by;</div><div class="line">	<span class="keyword">private</span> java.util.Date update_date;</div><div class="line">	<span class="keyword">private</span> java.lang.String delflag;</div><div class="line">	<span class="keyword">private</span> java.util.Date del_date;</div><div class="line"></div><div class="line">	<span class="comment">//带参构造函数</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">TELoanRefund</span><span class="params">(java.lang.String group_id)</span></span>&#123;</div><div class="line">	    <span class="keyword">this</span>.group_id = group_id;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>2.单元测试，构建查询语句</p>
@@ -409,6 +409,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">实体类必须有一个无参构造方法，否则java通过反射找不到这个类 导致不能实例化</div></pre></td></tr></table></figure>
 <p>5.追加无参构造参数，重新执行，单元测试通过。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//无参构造函数</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">TELoanRefund</span><span class="params">()</span></span>&#123;</div><div class="line">      </div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>6.遍历构造函数，实例化不同的类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">Class&lt;?&gt; class1 = 		 Class.forName(<span class="string">"com.echemi.b2b.finance.service.dao.impl.ReflectTest"</span>);</div><div class="line">Constructor&lt;?&gt; cons[] = class1.getConstructors();</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cons.length; i++) &#123;</div><div class="line">    Class&lt;?&gt; clazzs[] = cons[i].getParameterTypes();</div><div class="line">    System.out.print(<span class="string">"cons["</span> + i + <span class="string">"] ("</span>);</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; clazzs.length; j++) &#123;</div><div class="line">        <span class="keyword">if</span> (j == clazzs.length - <span class="number">1</span>)</div><div class="line">            System.out.print(clazzs[j].getName());</div><div class="line">        <span class="keyword">else</span></div><div class="line">            System.out.print(clazzs[j].getName() + <span class="string">","</span>);</div><div class="line">    &#125;</div><div class="line">    System.out.println(<span class="string">")"</span>);</div><div class="line">&#125;</div><div class="line">ReflectTest t1 = (ReflectTest) cons[<span class="number">0</span>].newInstance(<span class="string">"andy"</span>); <span class="comment">//利用反射来创</span></div><div class="line">Method m2 = class1.getDeclaredMethod(<span class="string">"test"</span>, String.class); </div><div class="line">m2.invoke(t1, <span class="string">"Java反射的学习"</span>);</div></pre></td></tr></table></figure>
 <!--more-->
                 
 
