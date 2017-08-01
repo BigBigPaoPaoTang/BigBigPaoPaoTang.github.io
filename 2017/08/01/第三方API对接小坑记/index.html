@@ -7,7 +7,7 @@
 
     
 
-    <title>系统架构 | Just Do IT</title>
+    <title>第三方API对接小坑记 | Just Do IT</title>
     <meta name="author" content="Andy">
     
     <meta name="description" content="♥Follow your heart, Live better♥">
@@ -15,7 +15,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    
+    <meta property="og:title" content="第三方API对接小坑记"/>
     <meta property="og:site_name" content="Andy&#39;s Blob"/>
 
     
@@ -385,30 +385,90 @@
 
     <main>
         <div class="container main-container">
-    
-
-<nav class="page-nav hide-on-small-only">
+    <nav class="page-nav hide-on-small-only">
     <div class="nav-wrapper indigo">
         <span class="breadcrumb">当前位置（分类目录）</span>
         
+            
+    
+    
+    <a class="breadcrumb" href="/categories/第三方/">第三方</a><a class="breadcrumb" href="/categories/第三方/API/">API</a>
+
 
         
-            <a class="breadcrumb" href="/categories/支付系统/系统架构/">系统架构</a>
+
         
     </div>
 </nav>
 
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>第三方API对接小坑记</h1>
+    
 
 
-    <div class="collection mt-0">
+            </div>
+            <time class="pink-link-context" datetime="2017-08-01T02:29:42.000Z"><a href="/2017/08/01/第三方API对接小坑记/">2017-08-01</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
         
-            <a href="/2017/06/10/支付系统开发小结/" class="collection-item grey-text text-darken-1">
-                <time datetime="2017-06-10T02:29:54.000Z">2017-06-10</time>
-                <span>&nbsp;&nbsp;&nbsp;</span>
-                简易支付系统的开发实践之路
-            </a>
+            <a href="/tags/API/" class="chip pink lighten-1">API</a>
         
     </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#第三方API对接小坑记"><span class="section table-of-contents-text">第三方API对接小坑记</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#签名验证失败"><span class="section table-of-contents-text">签名验证失败</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#定位之路"><span class="section table-of-contents-text">定位之路</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#小结"><span class="section table-of-contents-text">小结</span></a></li></ol></li></ol></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <h1 id="第三方API对接小坑记"><a href="#第三方API对接小坑记" class="headerlink" title="第三方API对接小坑记"></a>第三方API对接小坑记</h1><p>​         最近在做第三方接口的对接，期间遇到的小坑与诸君共享。</p>
+<a id="more"></a>
+<h2 id="签名验证失败"><a href="#签名验证失败" class="headerlink" title="签名验证失败"></a>签名验证失败</h2><h3 id="定位之路"><a href="#定位之路" class="headerlink" title="定位之路"></a>定位之路</h3><p>​    在统一了加密算法/加密规则之后，签名验证始终通不过，经定位是我方发送的待签名字符串到了友商那边，字符串内容和顺序变化导致的。举例说明如下：</p>
+<p>我方发送的信息：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    "licenceNo": "XXXXXXXXXXXXXXX",</div><div class="line">    "list": [</div><div class="line">        &#123;</div><div class="line">            "contractNo": "zzh_20170801",</div><div class="line">            "productName": "吱吱猴",</div><div class="line">            "ceo":"Andy",</div><div class="line">            "purchaseCurrency": "CNY",</div><div class="line">            "purchasePrice": 8250.00,</div><div class="line">            "purchaseTotalPrice": 2475000.00,</div><div class="line">            "supplierName": "吱吱猴科技有限公司"</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>友商接收到的信息：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    "licenceNo": "XXXXXXXXXXXXXXX",</div><div class="line">    "list": [</div><div class="line">        &#123;</div><div class="line">            "contractNo": "zzh_20170801",</div><div class="line">            "productName": "吱吱猴",</div><div class="line">            "ceo":"Andy",</div><div class="line">            "purchaseCurrency": "CNY",</div><div class="line">            "purchasePrice": 8250,</div><div class="line">            "purchaseTotalPrice": 2475000,</div><div class="line">            "supplierName": "吱吱猴科技有限公司"</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>​    从图中可以看出，接收到的字符串中自动过滤掉了小数点之后的0，经过探讨，发现双方虽然都用的fastJson库做的转换，但是版本不同，我们用的是1.1.30，友商用的是1.1.16，升级版本，则问题解决，但友商同时提供了多个服务商，若升级版本，带来的风险比较大，所以规避为全部用字符串传输，最终传输格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;licenceNo&quot;: &quot;XXXXXXXXXXXXXXX&quot;,</div><div class="line">    &quot;list&quot;: [</div><div class="line">        &#123;</div><div class="line">            &quot;contractNo&quot;: &quot;zzh_20170801&quot;,</div><div class="line">            &quot;productName&quot;: &quot;吱吱猴&quot;,</div><div class="line">            &quot;ceo&quot;:&quot;Andy&quot;,</div><div class="line">            &quot;purchaseCurrency&quot;: &quot;CNY&quot;,</div><div class="line">            &quot;purchasePrice&quot;: &quot;8250.00&quot;,</div><div class="line">            &quot;purchaseTotalPrice&quot;: &quot;2475000.00&quot;,</div><div class="line">            &quot;supplierName&quot;: &quot;吱吱猴科技有限公司&quot;</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>​    1) 双方用的json工具处理类不一致，导致解析出错，最终统一为fastJson</p>
+<p>​    2) fastJson版本太老，导致double类型精度缺失，经确认升级为最新版本</p>
+<p>​    3) 对参数需要进行默认排序, json转换的时候追加Feature.OrderedField属性</p>
+<p>​    参考url:<a href="http://dien.iteye.com/blog/2089310" target="_blank" rel="external">http://dien.iteye.com/blog/2089310</a></p>
+<p>​                       <a href="http://inlhx.iteye.com/blog/2312512" target="_blank" rel="external">http://inlhx.iteye.com/blog/2312512</a></p>
+
+                
+
+
+<p class="pink-link-context">
+    <a href="/2017/07/03/vue-js学习小结/" rel="next" title="vue.js学习小结">
+    下一篇：vue.js学习小结
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
 
 
 </div>
