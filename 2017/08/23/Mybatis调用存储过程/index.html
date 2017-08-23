@@ -7,7 +7,7 @@
 
     
 
-    <title>vue.js学习小结 | Just Do IT</title>
+    <title>Mybatis调用存储过程 | Just Do IT</title>
     <meta name="author" content="Andy">
     
     <meta name="description" content="♥Follow your heart, Live better♥">
@@ -15,7 +15,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <meta property="og:title" content="vue.js学习小结"/>
+    <meta property="og:title" content="Mybatis调用存储过程"/>
     <meta property="og:site_name" content="Andy&#39;s Blob"/>
 
     
@@ -400,7 +400,7 @@
             
     
     
-    <a class="breadcrumb" href="/categories/前端开发/">前端开发</a><a class="breadcrumb" href="/categories/前端开发/框架/">框架</a><a class="breadcrumb" href="/categories/前端开发/框架/Vue/">Vue</a>
+    <a class="breadcrumb" href="/categories/Mybatis/">Mybatis</a><a class="breadcrumb" href="/categories/Mybatis/produce/">produce</a>
 
 
         
@@ -417,12 +417,12 @@
             <div class="article-title">
                 
     
-        <h1>vue.js学习小结</h1>
+        <h1>Mybatis调用存储过程</h1>
     
 
 
             </div>
-            <time class="pink-link-context" datetime="2017-07-03T10:19:54.000Z"><a href="/2017/07/03/vue-js学习小结/">2017-07-03</a></time>
+            <time class="pink-link-context" datetime="2017-08-23T01:28:38.000Z"><a href="/2017/08/23/Mybatis调用存储过程/">2017-08-23</a></time>
 
             <span id="busuanzi_container_page_pv" class="read-times-container">
     <i class="fa fa-eye"></i>
@@ -432,43 +432,42 @@
             
     <div class="tags-row">
         
-            <a href="/tags/Vuex/" class="chip pink lighten-1">Vuex</a>
+            <a href="/tags/mybatis/" class="chip pink lighten-1">mybatis</a>
         
-            <a href="/tags/Vue/" class="chip pink lighten-1">Vue</a>
-        
-            <a href="/tags/Vue-Route/" class="chip pink lighten-1">Vue-Route</a>
+            <a href="/tags/produce/" class="chip pink lighten-1">produce</a>
         
     </div>
 
 
             <div class="toc pink-link-context hide-on-med-and-down">
-    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#Vue-js学习小结"><span class="section table-of-contents-text">Vue.js学习小结</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#Vue-js简介"><span class="section table-of-contents-text">Vue.js简介</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#Vue-js是什么"><span class="section table-of-contents-text">Vue.js是什么</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#Vue-js特点"><span class="section table-of-contents-text">Vue.js特点</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#Vue-js-环境搭建"><span class="section table-of-contents-text">Vue.js 环境搭建</span></a></li></ol></li></ol>
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#Mybatis调用存储过程"><span class="section table-of-contents-text">Mybatis调用存储过程</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#实现步骤"><span class="section table-of-contents-text">实现步骤</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-创建存储过程"><span class="section table-of-contents-text">1.创建存储过程</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#2-编写映射文件"><span class="section table-of-contents-text">2.编写映射文件</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#3-调用存储过程"><span class="section table-of-contents-text">3.调用存储过程</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#总结"><span class="section table-of-contents-text">总结</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#注意事项"><span class="section table-of-contents-text">注意事项</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#技能点"><span class="section table-of-contents-text">技能点</span></a></li></ol></li></ol></li></ol>
 </div>
 
 
             <div class="entry pink-link-context">
-                <h1 id="Vue-js学习小结"><a href="#Vue-js学习小结" class="headerlink" title="Vue.js学习小结"></a>Vue.js学习小结</h1><p>​    随着移动互联网日益盛行，浏览器功能日益完善，越来越多的项目倾向于采用BS架构。为了提高开发效率和代码复用率，越来越多的网页开发框架开始流行，例如Vue，React，Angular等。其中由于Vue具有轻量、高性能的特点，越来越多的爱好者将它应用于国内各种项目中，于是就有了越来越多的共享组件。本文给大家介绍Vue.js开发环境搭建以及基本功能的使用，感兴趣的朋友一起看看吧。</p>
+                <h1 id="Mybatis调用存储过程"><a href="#Mybatis调用存储过程" class="headerlink" title="Mybatis调用存储过程"></a>Mybatis调用存储过程</h1><p>如何使用Mybaits调用数据库中的存储过程，下面以Mysql数据库的为例。</p>
 <a id="more"></a>
-<h2 id="Vue-js简介"><a href="#Vue-js简介" class="headerlink" title="Vue.js简介"></a>Vue.js简介</h2><h3 id="Vue-js是什么"><a href="#Vue-js是什么" class="headerlink" title="Vue.js是什么"></a>Vue.js是什么</h3><p>​            Vue.js（读音 /vjuː/, 类似于 view） 是一套构建用户界面的 <strong>渐进式框架</strong>。与其他重量级框架不同的是，Vue 采用自底向上增量开发的设计。Vue 的核心库只关注视图层，并且非常容易学习，非常容易与其它库或已有项目整合。另一方面，Vue 完全有能力驱动采用单文件组件和Vue生态系统支持的库开发的复杂单页应用。</p>
-<p>​            Vue.js 的目标是通过尽可能简单的 API 实现<strong>响应的数据绑定</strong>和<strong>组合的视图组件</strong>。</p>
-<p>​            Vue.js 采用的是MVVM 模式(Model-View-ViewModel)</p>
-<h3 id="Vue-js特点"><a href="#Vue-js特点" class="headerlink" title="Vue.js特点"></a>Vue.js特点</h3><p>​            易用： 已经会了HTML,CSS,JavaScript？即刻阅读指南即可开始构建应用！</p>
-<p>​            灵活： 简单小巧的核心，渐进式技术栈，足以应付任何规模的应用。</p>
-<p>​            高效： 16kb min+gzip 的运行大小,超快虚拟 DOM ,最省心的优化</p>
-<h2 id="Vue-js-环境搭建"><a href="#Vue-js-环境搭建" class="headerlink" title="Vue.js 环境搭建"></a>Vue.js 环境搭建</h2><pre><code>参考文章
-</code></pre>
+<h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><h3 id="1-创建存储过程"><a href="#1-创建存储过程" class="headerlink" title="1.创建存储过程"></a>1.创建存储过程</h3><figure class="highlight sql"><figcaption><span>lite</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">or</span> <span class="keyword">replace</span> <span class="keyword">procedure</span> pag_add(p1 <span class="built_in">INTEGER</span>,p2 <span class="built_in">INTEGER</span>,p3 <span class="keyword">out</span> <span class="built_in">INTEGER</span>)</div><div class="line">   <span class="keyword">as</span></div><div class="line">    <span class="keyword">begin</span></div><div class="line">          p3:=p1+p2;</div><div class="line">    <span class="keyword">end</span>;</div></pre></td></tr></table></figure>
+<h3 id="2-编写映射文件"><a href="#2-编写映射文件" class="headerlink" title="2.编写映射文件"></a>2.编写映射文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;select id=&quot;getCallProduce&quot;  statementType=&quot;CALLABLE&quot; resultType=&quot;java.util.Map&quot; parameterType=&quot;java.util.Map&quot; &gt;</div><div class="line">	 &#123;</div><div class="line">        call payment_db_v1.generate_order_no(</div><div class="line">            #&#123;p1 ,mode=IN,jdbcType=INTEGER&#125;,</div><div class="line">            #&#123;p2,mode=IN,jdbcType=INTEGER&#125;,</div><div class="line">            #&#123;p3,mode=OUT,jdbcType=INTEGER&#125;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">	&lt;/select&gt;</div></pre></td></tr></table></figure>
+<h3 id="3-调用存储过程"><a href="#3-调用存储过程" class="headerlink" title="3.调用存储过程"></a>3.调用存储过程</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestProduce</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        BeanFactory factory = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"applicationContext.xml"</span>);</div><div class="line">        CommonService commonService = (CommonService)factory.getBean(<span class="string">"commonService"</span>);</div><div class="line">        HashMap&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</div><div class="line">        map.put(<span class="string">"p1"</span>, <span class="number">16</span>);</div><div class="line">        map.put(<span class="string">"p2"</span>, <span class="number">12</span>);</div><div class="line">        commonService.getCallProduce(map);</div><div class="line">        System.out.println(<span class="string">"Mybatis调用存储过程,得到的序列号是：："</span> + map.get(<span class="string">"p3"</span>));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>1)mapper文件中通过一个参数 statementType=”CALLABLE” 来区分存储过程。</p>
+<p>2)存储过程的输出参数的值必须通过 map 来接收 </p>
+<p>3)调用存储过程的传递的参数名可以不和定义存储过程的参数名保持一致，只要保证它们的顺序是一致的即可</p>
+<h3 id="技能点"><a href="#技能点" class="headerlink" title="技能点"></a>技能点</h3><p>由于项目中使用到了拦截器，处理Mybatis物理分页的BUG，拦截器中有这么一行代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Invocation invocation)</span> <span class="keyword">throws</span> Throwable </span>&#123;</div><div class="line">	<span class="keyword">if</span> (invocation.getTarget() <span class="keyword">instanceof</span> RoutingStatementHandler) &#123;</div><div class="line">		RoutingStatementHandler statement = (RoutingStatementHandler) invocation</div><div class="line">				.getTarget();</div><div class="line">		PreparedStatementHandler handler = (PreparedStatementHandler) ReflectUtil</div><div class="line">				.getField(RoutingStatementHandler.class, <span class="string">"delegate"</span>,statement);</div><div class="line">		RowBounds rowBounds = (RowBounds) ReflectUtil.getField(</div><div class="line">				PreparedStatementHandler.class, <span class="string">"rowBounds"</span>, handler); <span class="comment">//error</span></div><div class="line">       &#125;&#125;</div></pre></td></tr></table></figure>
+<p>其中error信息如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">Caused by: java.lang.ClassCastException: org.apache.ibatis.executor.statement.CallableStatementHandler cannot be cast to org.apache.ibatis.executor.statement.PreparedStatementHandler</div><div class="line">	at com.echemi.b2b.oceanfreight.dao.impl.StatementHandlerInterceptor.intercept(StatementHandlerInterceptor.java:29)</div><div class="line">	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:60)</div><div class="line">	at com.sun.proxy.$Proxy8.prepare(Unknown Source)</div><div class="line">	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:73)</div><div class="line">	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:59)</div><div class="line">	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:267)</div><div class="line">	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:137)</div><div class="line">	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:96)</div><div class="line">	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:77)</div><div class="line">	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:108)</div></pre></td></tr></table></figure>
+<p>定位原因：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CallableStatementHandler  不能强转为 PreparedStatementHandler</div></pre></td></tr></table></figure>
+<p>解决方案：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">BaseStatementHandler  handler = (BaseStatementHandler) ReflectUtil</div><div class="line">					.getField(RoutingStatementHandler.class, <span class="string">"delegate"</span>,statement);</div></pre></td></tr></table></figure>
+<!--more-->
                 
+
+
 <p class="pink-link-context">
     <a href="/2017/08/01/第三方API对接小坑记/" rel="next" title="第三方API对接小坑记">
-    上一篇：第三方API对接小坑记
-  </a>
-</p>
-
-
-
-<p class="pink-link-context">
-    <a href="/2017/06/29/Mybatis实体类反射错误/" rel="next" title="Mybatis实体类反射错误">
-    下一篇：Mybatis实体类反射错误
+    下一篇：第三方API对接小坑记
   </a>
 </p>
 
