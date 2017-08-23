@@ -171,22 +171,6 @@
             
 
             <li class="collapse-level-0" collapse-level="0">
-                <a class="no-padding" href="/categories/IM/">
-                    IM <span class="right">1 篇</span></a>
-                </a>
-            </li>
-
-        
-
-            <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/IM/openfire/">
-                    openfire <span class="right">1 篇</span></a>
-                </a>
-            </li>
-
-        
-
-            <li class="collapse-level-0" collapse-level="0">
                 <a class="no-padding" href="/categories/Spring/">
                     Spring <span class="right">4 篇</span></a>
                 </a>
@@ -203,16 +187,16 @@
         
 
             <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/Spring/Exception/">
-                    Exception <span class="right">1 篇</span></a>
+                <a class="no-padding" href="/categories/Spring/mysql/">
+                    mysql <span class="right">1 篇</span></a>
                 </a>
             </li>
 
         
 
             <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/Spring/mysql/">
-                    mysql <span class="right">1 篇</span></a>
+                <a class="no-padding" href="/categories/Spring/Exception/">
+                    Exception <span class="right">1 篇</span></a>
                 </a>
             </li>
 
@@ -227,56 +211,16 @@
         
 
             <li class="collapse-level-0" collapse-level="0">
-                <a class="no-padding" href="/categories/Maven/">
-                    Maven <span class="right">3 篇</span></a>
+                <a class="no-padding" href="/categories/IM/">
+                    IM <span class="right">1 篇</span></a>
                 </a>
             </li>
 
         
 
             <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/Maven/部署/">
-                    部署 <span class="right">2 篇</span></a>
-                </a>
-            </li>
-
-        
-
-            <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/Maven/config/">
-                    config <span class="right">1 篇</span></a>
-                </a>
-            </li>
-
-        
-
-            <li class="collapse-level-0" collapse-level="0">
-                <a class="no-padding" href="/categories/Mybatis/">
-                    Mybatis <span class="right">3 篇</span></a>
-                </a>
-            </li>
-
-        
-
-            <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/Mybatis/热部署/">
-                    热部署 <span class="right">1 篇</span></a>
-                </a>
-            </li>
-
-        
-
-            <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/Mybatis/produce/">
-                    produce <span class="right">1 篇</span></a>
-                </a>
-            </li>
-
-        
-
-            <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/Mybatis/reflect/">
-                    reflect <span class="right">1 篇</span></a>
+                <a class="no-padding" href="/categories/IM/openfire/">
+                    openfire <span class="right">1 篇</span></a>
                 </a>
             </li>
 
@@ -293,6 +237,62 @@
             <li class="collapse-level-1" collapse-level="1">
                 <a class="no-padding" href="/categories/JVM/内存回收/">
                     内存回收 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Maven/">
+                    Maven <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Maven/config/">
+                    config <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Maven/部署/">
+                    部署 <span class="right">2 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Mybatis/">
+                    Mybatis <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Mybatis/reflect/">
+                    reflect <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Mybatis/热部署/">
+                    热部署 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Mybatis/produce/">
+                    produce <span class="right">1 篇</span></a>
                 </a>
             </li>
 
@@ -453,6 +453,7 @@
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>1)mapper文件中通过一个参数 statementType=”CALLABLE” 来区分存储过程。</p>
 <p>2)存储过程的输出参数的值必须通过 map 来接收 </p>
 <p>3)调用存储过程的传递的参数名可以不和定义存储过程的参数名保持一致，只要保证它们的顺序是一致的即可</p>
+<p>4)调用navicat生成存储过程，一定要注意varchar和char的长度，用默认的会出错，命令行的可忽略此条</p>
 <h3 id="技能点"><a href="#技能点" class="headerlink" title="技能点"></a>技能点</h3><p>由于项目中使用到了拦截器，处理Mybatis物理分页的BUG，拦截器中有这么一行代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Invocation invocation)</span> <span class="keyword">throws</span> Throwable </span>&#123;</div><div class="line">	<span class="keyword">if</span> (invocation.getTarget() <span class="keyword">instanceof</span> RoutingStatementHandler) &#123;</div><div class="line">		RoutingStatementHandler statement = (RoutingStatementHandler) invocation</div><div class="line">				.getTarget();</div><div class="line">		PreparedStatementHandler handler = (PreparedStatementHandler) ReflectUtil</div><div class="line">				.getField(RoutingStatementHandler.class, <span class="string">"delegate"</span>,statement);</div><div class="line">		RowBounds rowBounds = (RowBounds) ReflectUtil.getField(</div><div class="line">				PreparedStatementHandler.class, <span class="string">"rowBounds"</span>, handler); <span class="comment">//error</span></div><div class="line">       &#125;&#125;</div></pre></td></tr></table></figure>
 <p>其中error信息如下：</p>
