@@ -1,0 +1,835 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>基于Maven在Spring中集成CXF Web Service框架 | Just Do IT</title>
+    <meta name="author" content="Andy">
+    
+    <meta name="description" content="♥Follow your heart, Live better♥">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="基于Maven在Spring中集成CXF Web Service框架"/>
+    <meta property="og:site_name" content="Andy&#39;s Blob"/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="Andy&#39;s Blob" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">Andy&#39;s Blob</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading" >
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://or21uqr9s.bkt.clouddn.com/1.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">Andy</p>
+                        <p class="desc">Java/Android/C</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading" >
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/JVM/">
+                    JVM <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/JVM/内存回收/">
+                    内存回收 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/IM/">
+                    IM <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/IM/openfire/">
+                    openfire <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Maven/">
+                    Maven <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Maven/config/">
+                    config <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Maven/部署/">
+                    部署 <span class="right">2 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Spring/">
+                    Spring <span class="right">4 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Spring/AOP/">
+                    AOP <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Spring/mysql/">
+                    mysql <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Spring/Exception/">
+                    Exception <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Spring/framework/">
+                    framework <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Mybatis/">
+                    Mybatis <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Mybatis/reflect/">
+                    reflect <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Mybatis/produce/">
+                    produce <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Mybatis/热部署/">
+                    热部署 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Java/">
+                    Java <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Java/tool/">
+                    tool <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/第三方/">
+                    第三方 <span class="right">2 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/第三方/WebService/">
+                    WebService <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/第三方/WebService/加密/">
+                    加密 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/第三方/API/">
+                    API <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/前端开发/">
+                    前端开发 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端开发/框架/">
+                    框架 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/前端开发/框架/Vue/">
+                    Vue <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/支付系统/">
+                    支付系统 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/支付系统/系统架构/">
+                    系统架构 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/第三方/">第三方</a><a class="breadcrumb" href="/categories/第三方/WebService/">WebService</a><a class="breadcrumb" href="/categories/第三方/WebService/加密/">加密</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>基于Maven在Spring中集成CXF Web Service框架</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2017-08-29T09:44:34.000Z"><a href="/2017/08/29/基于Maven在Spring中集成CXF-Web-Service框架/">2017-08-29</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/WebService/" class="chip pink lighten-1">WebService</a>
+        
+            <a href="/tags/加密/" class="chip pink lighten-1">加密</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#基于Maven在Spring集成CXF-Web-Service框架"><span class="section table-of-contents-text">基于Maven在Spring集成CXF Web Service框架</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#WebService概念及术语"><span class="section table-of-contents-text">WebService概念及术语</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#何为webservice"><span class="section table-of-contents-text">何为webservice</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#何为XML"><span class="section table-of-contents-text">何为XML</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#何为SOAP"><span class="section table-of-contents-text">何为SOAP</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#何为WSDL"><span class="section table-of-contents-text">何为WSDL</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#何为UDDI"><span class="section table-of-contents-text">何为UDDI</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#开发框架选择"><span class="section table-of-contents-text">开发框架选择</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#Axis2"><span class="section table-of-contents-text">Axis2</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#CXF"><span class="section table-of-contents-text">CXF</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#框架选择"><span class="section table-of-contents-text">框架选择</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#基于CXF创建WebService服务端"><span class="section table-of-contents-text">基于CXF创建WebService服务端</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#添加依赖包"><span class="section table-of-contents-text">添加依赖包</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#创建服务接口"><span class="section table-of-contents-text">创建服务接口</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#创建服务实现类"><span class="section table-of-contents-text">创建服务实现类</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#在Web-xml中声明CXF监听器"><span class="section table-of-contents-text">在Web.xml中声明CXF监听器</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#创建WebService声明的Spring配置文件spring-cxf-service-xml"><span class="section table-of-contents-text">创建WebService声明的Spring配置文件spring-cxf-service.xml</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#将CXF配置在web-xml"><span class="section table-of-contents-text">将CXF配置在web.xml</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#启动服务"><span class="section table-of-contents-text">启动服务</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#CXF客户端调用WebService服务"><span class="section table-of-contents-text">CXF客户端调用WebService服务</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#编写客户端测试类"><span class="section table-of-contents-text">编写客户端测试类</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#CXF客户端配置"><span class="section table-of-contents-text">CXF客户端配置</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#总结"><span class="section table-of-contents-text">总结</span></a></li></ol></li></ol></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <h1 id="基于Maven在Spring集成CXF-Web-Service框架"><a href="#基于Maven在Spring集成CXF-Web-Service框架" class="headerlink" title="基于Maven在Spring集成CXF Web Service框架"></a>基于Maven在Spring集成CXF Web Service框架</h1><p>最近做的项目都用到了webservice，通过自己的实践和网上资料的汇总，现在做个小结。</p>
+<a id="more"></a>
+<p>在开篇之初，先简要介绍下Web Service有关术语，有助于大家的理解。</p>
+<h3 id="WebService概念及术语"><a href="#WebService概念及术语" class="headerlink" title="WebService概念及术语"></a>WebService概念及术语</h3><h4 id="何为webservice"><a href="#何为webservice" class="headerlink" title="何为webservice"></a>何为webservice</h4><p>​    1、基于web的服务，服务器端整出一些资源让客户端应用访问（获取资源）。<br>​    2、一个跨语言，跨平台的规范（抽象）。<br>​    3、多个跨平台，跨语言的应用间通信整合的方案（实际）</p>
+<p> 简单来说,webservice就是远程调用技术,也叫XML Web Service WebService是一种可以接收从Internet或者Intranet上的其它系统中传递过来的请求，轻量级的独立的通讯技术。是:通过SOAP在Web上提供的软件服务，使用WSDL文件进行说明，并通过UDDI进行注册，webservice调用实质如下：</p>
+<p><img src="img\webservice_call_img.jpg" alt="webservice_call_img"></p>
+<h4 id="何为XML"><a href="#何为XML" class="headerlink" title="何为XML"></a>何为XML</h4><p><strong>XML：</strong>(Extensible Markup Language)扩展型可标记语言。面向短期的临时数据处理、面向万维网络，是Soap的基础</p>
+<h4 id="何为SOAP"><a href="#何为SOAP" class="headerlink" title="何为SOAP"></a>何为SOAP</h4><p><strong>Soap：</strong>(Simple Object Access Protocol)简单对象存取协议。是XML Web Service 的通信协议。当用户通过UDDI找到你的WSDL描述文档后，他通过可以SOAP调用你建立的Web服务中的一个或多个操作。SOAP是XML文档形式的调用方法的规范，它可以支持不同的底层接口，像HTTP(S)或者SMTP。</p>
+<h4 id="何为WSDL"><a href="#何为WSDL" class="headerlink" title="何为WSDL"></a>何为WSDL</h4><p><strong>WSDL：</strong>(Web Services Description Language) WSDL 文件是一个 XML 文档，用于说明一组 SOAP 消息以及如何交换这些消息。大多数情况下由软件自动生成和使用。 </p>
+<h4 id="何为UDDI"><a href="#何为UDDI" class="headerlink" title="何为UDDI"></a>何为UDDI</h4><p><strong>UDDI:</strong>通用描述、发现与集成，它是一种独立于平台的，基于XML语言的用于在互联网上描述商务的协议</p>
+<h3 id="开发框架选择"><a href="#开发框架选择" class="headerlink" title="开发框架选择"></a>开发框架选择</h3><p>​    从头开始构建自己的WebService描述，处理服务消息发布、接收等任务的话系统的重用性将大大降低，因此，就像所有的系统级开发一样，在WebService这里也有很多现成的框架来帮助开发者快速部署自己的Web服务。现在的主流WebService服务框架主要有：</p>
+<h4 id="Axis2"><a href="#Axis2" class="headerlink" title="Axis2"></a>Axis2</h4><p>​    Axis2是Apache下的一个重量级WebService框架，准确说它是一个Web Services / SOAP / WSDL 的引擎，是WebService框架的集大成者，它能不但能制作和发布WebService，而且可以生成Java和其他语言版WebService客户端和服务端代码。这是它的优势所在。但是，这也不可避免的导致了Axis2的复杂性，使用过的开发者都知道，它所依赖的包数量和大小都是很惊人的，打包部署发布都比较麻烦，不能很好的与现有应用整合为一体。但是如果你要开发Java之外别的语言客户端，Axis2提供的丰富工具将是你不二的选择。</p>
+<h4 id="CXF"><a href="#CXF" class="headerlink" title="CXF"></a>CXF</h4><p>​    CXF是Apache旗下一个重磅的SOA简易框架，它实现了ESB（企业服务总线）。CXF来自于XFire项目，经过改造后形成的，就像目前的Struts2来自WebWork一样。可以看出XFire的命运会和WebWork的命运一样，最终会淡出人们的视线。CXF不但是一个优秀的Web Services / SOAP / WSDL 引擎，也是一个不错的ESB总线，为SOA的实施提供了一种选择方案，当然他不是最好的，它仅仅实现了SOA架构的一部分。</p>
+<h4 id="框架选择"><a href="#框架选择" class="headerlink" title="框架选择"></a>框架选择</h4><p>​    CXF更注重开发人员的工效（ergonomics），大多数配置都可以API来完成，替代了比较繁琐的XML配置文件， Spring的集成性经常的被提及，CXF支持Spring2.0和CXF’s API和Spring的配置文件可以非常好的对应。CXF强调代码优先的设计方式（code-first design)，使用了简单的API使得从现有的应用开发服务变得方便</p>
+<h3 id="基于CXF创建WebService服务端"><a href="#基于CXF创建WebService服务端" class="headerlink" title="基于CXF创建WebService服务端"></a>基于CXF创建WebService服务端</h3><p>   项目背景是Spring 4.0.6.RELEASE， CXF： 3.1.12，JDK 1.7, Maven 3.2.3，下面直接撸代码.</p>
+<h4 id="添加依赖包"><a href="#添加依赖包" class="headerlink" title="添加依赖包"></a>添加依赖包</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">cxf.version</span>&gt;</span>3.1.12<span class="tag">&lt;/<span class="name">cxf.version</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.cxf<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cxf-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;cxf.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.cxf<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cxf-rt-frontend-jaxws<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;cxf.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.cxf<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cxf-rt-frontend-jaxrs<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;cxf.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.cxf<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cxf-rt-transports-http<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;cxf.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>注意：CXF的版本必须配套，不然会出现好多意想不到的错误：如相关类加载失败。</p>
+<h4 id="创建服务接口"><a href="#创建服务接口" class="headerlink" title="创建服务接口"></a>创建服务接口</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.echemi.b2b.thirdparty.ws.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.jws.WebService;</div><div class="line"></div><div class="line"><span class="meta">@WebService</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">WeatherService</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getWeather</span><span class="params">(String city)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getNowWeather</span><span class="params">(String city)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意：“@WebService”标记表示该接口是一个WebService服务</p>
+<h4 id="创建服务实现类"><a href="#创建服务实现类" class="headerlink" title="创建服务实现类"></a>创建服务实现类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.echemi.b2b.thirdparty.ws.service.Impl;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.jws.WebService;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.echemi.b2b.thirdparty.ws.service.WeatherService;</div><div class="line"></div><div class="line"><span class="meta">@WebService</span>(endpointInterface = <span class="string">"com.echemi.b2b.thirdparty.ws.service.WeatherService"</span>, serviceName = <span class="string">"WeatherService"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeatherServiceImpl</span> <span class="keyword">implements</span> <span class="title">WeatherService</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getWeather</span><span class="params">(String city)</span> </span>&#123;</div><div class="line">        <span class="comment">//fake weather data:</span></div><div class="line">        String shanghai = <span class="string">"12C,almost sunny"</span>;</div><div class="line">        String beijing = <span class="string">"7C,most part fog"</span>;</div><div class="line">        String guangzhou = <span class="string">"20C,a little rain"</span>;</div><div class="line">        <span class="keyword">if</span>(city.equals(<span class="string">"shanghai"</span>))</div><div class="line">            <span class="keyword">return</span> shanghai;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(city.equals(<span class="string">"beijing"</span>))</div><div class="line">            <span class="keyword">return</span> beijing;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (city.equals(<span class="string">"guangzhou"</span>))</div><div class="line">            <span class="keyword">return</span> guangzhou;</div><div class="line">        <span class="keyword">else</span> </div><div class="line">            <span class="keyword">return</span> <span class="string">"no data"</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getNowWeather</span><span class="params">(String city)</span> </span>&#123;</div><div class="line">        <span class="comment">//fake weather data:</span></div><div class="line">        String shanghai = <span class="string">"12C,almost sunny"</span>;</div><div class="line">        String beijing = <span class="string">"7C,most part fog"</span>;</div><div class="line">        String guangzhou = <span class="string">"20C,a little rain"</span>;</div><div class="line">        <span class="keyword">if</span>(city.equals(<span class="string">"shanghai"</span>))</div><div class="line">            <span class="keyword">return</span> shanghai;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(city.equals(<span class="string">"beijing"</span>))</div><div class="line">            <span class="keyword">return</span> beijing;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (city.equals(<span class="string">"guangzhou"</span>))</div><div class="line">            <span class="keyword">return</span> guangzhou;</div><div class="line">        <span class="keyword">else</span> </div><div class="line">            <span class="keyword">return</span> <span class="string">"no data"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="在Web-xml中声明CXF监听器"><a href="#在Web-xml中声明CXF监听器" class="headerlink" title="在Web.xml中声明CXF监听器"></a>在Web.xml中声明CXF监听器</h4><p>在Web.xml中声明基本的CXF的服务servlet和Spring的IOC容器：</p>
+<ul>
+<li><p>Spring IOC容器使用ContextLoaderListener监听器来注入需要的bean，bean的配置详情写在classpath下的applicationContext-server.xml（实际也就是src下的applicationContext-server.xml，在构建后classpath下就会出现这个配置文件）。</p>
+</li>
+<li><p>同所有的servlet一样，servlet存在的目的就是将web前端的URL请求映射到后台的处理器中去，因此web.xml中需要配置映射原则，这里我们可以看到CXFServlet用于映射带有ws标识的URL到自己的处理范围里，也就是说，一旦满足这样模式的URL，都将请求WebService。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- WebService相关配置 --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>CXFServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.apache.cxf.transport.servlet.CXFServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>CXFServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/ws/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- WebService相关配置 --&gt;</span></div></pre></td></tr></table></figure>
+<p>注意：<servlet-mapping>下的<url-pattern>指明了服务访问地址的形式，“/ws/**”代表URL地址中，包名称后直接跟服务endpoint地址</url-pattern></servlet-mapping></p>
+<p>​</p>
+</li>
+</ul>
+<h4 id="创建WebService声明的Spring配置文件spring-cxf-service-xml"><a href="#创建WebService声明的Spring配置文件spring-cxf-service-xml" class="headerlink" title="创建WebService声明的Spring配置文件spring-cxf-service.xml"></a>创建WebService声明的Spring配置文件spring-cxf-service.xml</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></div><div class="line">	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xmlns:jaxws</span>=<span class="string">"http://cxf.apache.org/jaxws"</span></div><div class="line">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></div><div class="line">                       http://www.springframework.org/schema/beans/spring-beans.xsd</div><div class="line">                       http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd"&gt;</div><div class="line">	<span class="tag">&lt;<span class="name">jaxws:endpoint</span> <span class="attr">id</span>=<span class="string">"WeatherService"</span></span></div><div class="line">		<span class="attr">implementor</span>=<span class="string">"com.echemi.b2b.thirdparty.ws.service.Impl.WeatherServiceImpl"</span></div><div class="line">		<span class="attr">address</span>=<span class="string">"/getWeather"</span>&gt;</div><div class="line">	<span class="tag">&lt;/<span class="name">jaxws:endpoint</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>   注意：<jaxws:endpoint>定义了一个WebService，implementor是WebService处理类，值为在（6）中定义的bean的id，其具体的实现类在class中指明，address是它的访问路径，就是上面提到的将要在URL中显示的endpoint的名称</jaxws:endpoint></p>
+<h4 id="将CXF配置在web-xml"><a href="#将CXF配置在web-xml" class="headerlink" title="将CXF配置在web.xml"></a>将CXF配置在web.xml</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>      </div><div class="line">      classpath:META-INF/spring-cxf-service.xml    </div><div class="line">    <span class="tag">&lt;/<span class="name">param-value</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h4><p>​    将我们的工程部署到Tomcat服务器中去，启动服务器查看如下URL：<a href="http://localhost:8080/xxx_pro/ws" target="_blank" rel="external">http://localhost:8080/xxx_pro/ws</a><br>在这里浏览器会返回CXF渲染的web页面用以说明当前的CXFServlet能够导向的服务有哪些：WeatherService使用/getWeather的URL就可以调用。<br>​    我们再使用这样的URL来查看这个服务具体的定义：<a href="http://localhost:8080/xxx_pro/ws/getWeather?wsdl" target="_blank" rel="external">http://localhost:8080/xxx_pro/ws/getWeather?wsdl</a><br>这个URL用以通过WSDL（WebService Description Language）查看Web服务：也就是我们开头所说的用通用格式来描述WebService的功能、入参和返回值，使我们的调用者明白服务的使用方法：具体详情可以查看我们的这个服务的WSDL页面,如下图所示：<img src="\img\wsdl.png" alt="wsdl"></p>
+<p>​    至此，说明我们的服务已经部署到我们的服务器上了，接下来需要有客户端来调用这个服务，我们仍然使用Spring的依赖注入来处理。</p>
+<h3 id="CXF客户端调用WebService服务"><a href="#CXF客户端调用WebService服务" class="headerlink" title="CXF客户端调用WebService服务"></a>CXF客户端调用WebService服务</h3><p>​    正常开发两个独立系统之间互操作的服务，需要双方协商好WSDL，然后根据WSDL规范去实现互操作性。在本示例中，我们已经开发完成了服务端程序，下面需要开发客户端程序，为了达到客户端调用服务端的目的。</p>
+<h4 id="编写客户端测试类"><a href="#编写客户端测试类" class="headerlink" title="编写客户端测试类"></a>编写客户端测试类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">package</span> com.echemi.b2b.thirdparty.ws.client;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</div><div class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.echemi.b2b.thirdparty.ws.service.WeatherService;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        ApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"applicationContext*.xml"</span>);</div><div class="line">        WeatherService weatherService = (WeatherService) context.getBean(<span class="string">"client"</span>);</div><div class="line">        String response = weatherService.getNowWeather(<span class="string">"beijing"</span>);</div><div class="line">        System.out.println(response);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="CXF客户端配置"><a href="#CXF客户端配置" class="headerlink" title="CXF客户端配置"></a>CXF客户端配置</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></div><div class="line">	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xmlns:jaxws</span>=<span class="string">"http://cxf.apache.org/jaxws"</span></div><div class="line">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></div><div class="line">                       http://www.springframework.org/schema/beans/spring-beans.xsd</div><div class="line">                       http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd"&gt;</div><div class="line">	<span class="comment">&lt;!-- &lt;bean id="client" class="com.echemi.b2b.thirdparty.ws.client.Client" </span></div><div class="line">		factory-bean="clientFactory" factory-method="create" /&gt; &lt;bean id="clientFactory" </div><div class="line">		class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean"&gt; &lt;property name="serviceClass" </div><div class="line">		value="com.echemi.b2b.thirdparty.ws.service.WeatherService" /&gt; &lt;property </div><div class="line">		name="address" value="http://localhost:8080/echemi_api_supply_finance/ws/getWeather" </div><div class="line">		/&gt; &lt;jaxws:outInterceptors&gt; &lt;ref bean="wss4jOutInterceptor"/&gt; &lt;/jaxws:outInterceptors&gt; </div><div class="line">		&lt;/bean&gt; --&gt;</div><div class="line">	<span class="tag">&lt;<span class="name">jaxws:client</span> <span class="attr">id</span>=<span class="string">"client"</span></span></div><div class="line">		<span class="attr">serviceClass</span>=<span class="string">"com.echemi.b2b.thirdparty.ws.service.WeatherService"</span></div><div class="line">		<span class="attr">address</span>=<span class="string">"http://localhost:8080/echemi_api_supply_finance/ws/getWeather"</span>&gt;</div><div class="line">		<span class="tag">&lt;<span class="name">jaxws:outInterceptors</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"wss4jOutInterceptor"</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">jaxws:outInterceptors</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">jaxws:client</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>​    说明：该方式访问ws服务是利用了Spring的依赖注入法，其中id是Spring IOC容器唯一标识符，在代码中也是通过id获取服务对象的（context.getBean(“sayHello2”)）；serviceClass是WebService服务接口；address是WDSL地址。</p>
+<p>​    以上内容就是我们展示的CXF和Spring集成的WebService开发过程，例子虽小，但是阐明了WebService创建的基本过程.</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​    CXF在实现上存在诸多的底层实现，jaxws, rs等等诸多的内容，这里只选取jaxws来做为示例，至于其他的诸多实现，笔者也不是非常熟悉，姑且放下不论。好了，经过了漫长的配置和调试之后，相信大家对于如何使用cxf进入开发状态有了一个初步的认识。</p>
+<p>​    目前来说，越来越多的企业和系统已经迁移至基于http请求的json或者xml格式的请求，而非标准的soap/webservice请求，究其原因还是soap/webservice过于复杂、标准虽好，但是用着不多。关键是看是否简单易用，可以快速解决开发中存在的问题，在这个方面json/xml则是非常的简单。</p>
+
+                
+
+
+<p class="pink-link-context">
+    <a href="/2017/08/23/Mybatis调用存储过程/" rel="next" title="Mybatis调用存储过程">
+    下一篇：Mybatis调用存储过程
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1"  data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="http://weibo.com/1956184117" target="_blank">
+                        <i class="fa fa-2x fa-weibo"></i>
+                    </a>
+                
+                    <a class="social-link" href="https://github.com/raytaylorlin" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="/atom.xml" target="_blank">
+                        <i class="fa fa-2x fa-rss"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+            <div class="col m8 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="http://raytaylorlin.com/" target="_blank">raytaylorism主题作者的技术博客</a>
+                
+                    <a class="social-link" href="https://github.com/raytaylorlin" target="_blank">Github地址（测试友情链接）</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('.menu-reading, .menu-about').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>
