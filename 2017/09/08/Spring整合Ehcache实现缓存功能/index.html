@@ -485,7 +485,7 @@
 
 
             <div class="entry pink-link-context">
-                <h1 id="Spring整合Ehcache实现缓存功能"><a href="#Spring整合Ehcache实现缓存功能" class="headerlink" title="Spring整合Ehcache实现缓存功能"></a>Spring整合Ehcache实现缓存功能</h1><p>​    最近在做API动态配置功能，发现每次API的获取都需要查询数据库，然而API的变动并不是很频繁，所以想要振哥还一个中间缓存层来优化查询的效率。本文从理论和实际操作两方面对Spring缓存进行讲解，如果只是为了快速的应用EhCache到Spring项目中，请直接前往第二节“Spring整合EhCache缓存”。</p>
+                <h1 id="Spring整合Ehcache实现缓存功能"><a href="#Spring整合Ehcache实现缓存功能" class="headerlink" title="Spring整合Ehcache实现缓存功能"></a>Spring整合Ehcache实现缓存功能</h1><p>​    最近在做API动态配置功能，发现每次API的获取都需要查询数据库，然而API的变动并不是很频繁，所以决定增加一个中间缓存层来优化查询的效率。本文从理论和实际操作两方面对Spring缓存进行讲解，如果只是为了快速的应用EhCache到Spring项目中，请直接前往第二节“Spring整合EhCache缓存”。</p>
 <a id="more"></a>
 <h2 id="Spring缓存简介"><a href="#Spring缓存简介" class="headerlink" title="Spring缓存简介"></a>Spring缓存简介</h2><h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>​    Web应用，特别是电商类型的应用，往往关系比较复杂，数据库表繁多，如果频繁进行数据库查询，很容易导致数据库不堪重荷。为了提供查询的性能，会将查询后的数据放到内存中进行缓存，下次查询时，直接从内存缓存直接返回，提供响应效率，具体实现如下图所示：</p>
 <p><img src="\img\cache.png" alt="cache"></p>
