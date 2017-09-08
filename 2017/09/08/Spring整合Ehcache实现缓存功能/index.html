@@ -1,0 +1,854 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>Spring整合Ehcache实现缓存功能 | Just Do IT</title>
+    <meta name="author" content="Andy">
+    
+    <meta name="description" content="♥Follow your heart, Live better♥">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="Spring整合Ehcache实现缓存功能"/>
+    <meta property="og:site_name" content="Andy&#39;s Blob"/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="Andy&#39;s Blob" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">Andy&#39;s Blob</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading" >
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://or21uqr9s.bkt.clouddn.com/1.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">Andy</p>
+                        <p class="desc">Java/Android/C</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading" >
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Spring/">
+                    Spring <span class="right">5 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Spring/AOP/">
+                    AOP <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Spring/缓存/">
+                    缓存 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/Spring/缓存/Ehcache/">
+                    Ehcache <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Spring/mysql/">
+                    mysql <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Spring/Exception/">
+                    Exception <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Spring/framework/">
+                    framework <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Maven/">
+                    Maven <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Maven/config/">
+                    config <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Maven/部署/">
+                    部署 <span class="right">2 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/IM/">
+                    IM <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/IM/openfire/">
+                    openfire <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/JVM/">
+                    JVM <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/JVM/内存回收/">
+                    内存回收 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Mybatis/">
+                    Mybatis <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Mybatis/reflect/">
+                    reflect <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Mybatis/热部署/">
+                    热部署 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Mybatis/produce/">
+                    produce <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/Java/">
+                    Java <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/Java/tool/">
+                    tool <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/前端开发/">
+                    前端开发 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端开发/框架/">
+                    框架 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/前端开发/框架/Vue/">
+                    Vue <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/第三方/">
+                    第三方 <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/第三方/WebService/">
+                    WebService <span class="right">2 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/第三方/WebService/加密/">
+                    加密 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/第三方/WebService/环境搭建/">
+                    环境搭建 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/第三方/API/">
+                    API <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/支付系统/">
+                    支付系统 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/支付系统/系统架构/">
+                    系统架构 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/Spring/">Spring</a><a class="breadcrumb" href="/categories/Spring/缓存/">缓存</a><a class="breadcrumb" href="/categories/Spring/缓存/Ehcache/">Ehcache</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>Spring整合Ehcache实现缓存功能</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2017-09-08T06:31:01.000Z"><a href="/2017/09/08/Spring整合Ehcache实现缓存功能/">2017-09-08</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/Ehcache/" class="chip pink lighten-1">Ehcache</a>
+        
+            <a href="/tags/Spring/" class="chip pink lighten-1">Spring</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#Spring整合Ehcache实现缓存功能"><span class="section table-of-contents-text">Spring整合Ehcache实现缓存功能</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#Spring缓存简介"><span class="section table-of-contents-text">Spring缓存简介</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#适用场景"><span class="section table-of-contents-text">适用场景</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#实现机制"><span class="section table-of-contents-text">实现机制</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#缓存管理器选择"><span class="section table-of-contents-text">缓存管理器选择</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#详细实例讲解"><span class="section table-of-contents-text">详细实例讲解</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#EhCache的pom依赖"><span class="section table-of-contents-text">EhCache的pom依赖</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#添加EhCache的配置文件"><span class="section table-of-contents-text">添加EhCache的配置文件</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#Cache元素的属性"><span class="section table-of-contents-text">Cache元素的属性</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#EhCache集成到Spring"><span class="section table-of-contents-text">EhCache集成到Spring</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#缓存代码实现层"><span class="section table-of-contents-text">缓存代码实现层</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#接口层"><span class="section table-of-contents-text">接口层</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#接口实现层"><span class="section table-of-contents-text">接口实现层</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#单元测试"><span class="section table-of-contents-text">单元测试</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#测试代码"><span class="section table-of-contents-text">测试代码</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#运行结果"><span class="section table-of-contents-text">运行结果</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#问题汇总"><span class="section table-of-contents-text">问题汇总</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#问题一"><span class="section table-of-contents-text">问题一</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#问题二"><span class="section table-of-contents-text">问题二</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#问题三"><span class="section table-of-contents-text">问题三</span></a></li></ol></li></ol></li></ol></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <h1 id="Spring整合Ehcache实现缓存功能"><a href="#Spring整合Ehcache实现缓存功能" class="headerlink" title="Spring整合Ehcache实现缓存功能"></a>Spring整合Ehcache实现缓存功能</h1><p>​    最近在做API动态配置功能，发现每次API的获取都需要查询数据库，然而API的变动并不是很频繁，所以想要振哥还一个中间缓存层来优化查询的效率。本文从理论和实际操作两方面对Spring缓存进行讲解，如果只是为了快速的应用EhCache到Spring项目中，请直接前往第二节“Spring整合EhCache缓存”。</p>
+<a id="more"></a>
+<h2 id="Spring缓存简介"><a href="#Spring缓存简介" class="headerlink" title="Spring缓存简介"></a>Spring缓存简介</h2><h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>​    Web应用，特别是电商类型的应用，往往关系比较复杂，数据库表繁多，如果频繁进行数据库查询，很容易导致数据库不堪重荷。为了提供查询的性能，会将查询后的数据放到内存中进行缓存，下次查询时，直接从内存缓存直接返回，提供响应效率，具体实现如下图所示：</p>
+<p><img src="\img\cache.png" alt="cache"></p>
+<h3 id="实现机制"><a href="#实现机制" class="headerlink" title="实现机制"></a>实现机制</h3><p>​    Spring自身并没有实现缓存解决方案，但是对缓存管理功能提供了声明式的支持，能够与<strong>多种流行的缓存实现</strong>进行集成。</p>
+<p>​    Spring Cache是<strong>作用</strong>在方法上的（不能理解为只注解在方法上），其<strong>核心思想</strong>是：当我们在调用一个缓存方法时会把该方法参数和返回结果作为一个键值存放在缓存中，等到下次利用同样的参数调用该方法时将不再执行该方法，而是直接从缓存中获取结果进行返回。所以在使用Spring Cache的时候我们要保证我们的缓存的方法对于相同的方法参数要有相同的返回结果。</p>
+<h3 id="缓存管理器选择"><a href="#缓存管理器选择" class="headerlink" title="缓存管理器选择"></a>缓存管理器选择</h3><p>​    在为Spring的缓存抽象选择缓存管理器时，我们有很多可选方案。具体选择哪一个要取决于想要使用的<strong>底层缓存供应商</strong>。每一个方案都可以为应用提供不同风格的缓存，其中有一些会比其他的更加适用于生产环境。考虑到此次系统部署的是单机环境，没有分布式扩展的需求，而Ehcache直接在jvm虚拟机中缓存，访问速度快，执行效率高，所以选择Ehcache作为系统的缓存框架，下面将介绍Spring+EhCache详细实例。</p>
+<h2 id="详细实例讲解"><a href="#详细实例讲解" class="headerlink" title="详细实例讲解"></a>详细实例讲解</h2><h3 id="EhCache的pom依赖"><a href="#EhCache的pom依赖" class="headerlink" title="EhCache的pom依赖"></a>EhCache的pom依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- ehcache 相关依赖  --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.sf.ehcache<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>ehcache<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.8.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="添加EhCache的配置文件"><a href="#添加EhCache的配置文件" class="headerlink" title="添加EhCache的配置文件"></a>添加EhCache的配置文件</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">ehcache</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- 指定一个文件目录，当EhCache把数据写到硬盘上时，将把数据写到这个文件目录下 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">diskStore</span> <span class="attr">path</span>=<span class="string">"java.io.tmpdir"</span>/&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!-- 设定缓存的默认数据过期策略 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">cache</span> <span class="attr">name</span>=<span class="string">"cacheScheme"</span></span></div><div class="line">        <span class="attr">maxElementsInMemory</span>=<span class="string">"1000"</span></div><div class="line">        <span class="attr">eternal</span>=<span class="string">"false"</span></div><div class="line">        <span class="attr">overflowToDisk</span>=<span class="string">"true"</span></div><div class="line">        <span class="attr">timeToIdleSeconds</span>=<span class="string">"10"</span></div><div class="line">        <span class="attr">timeToLiveSeconds</span>=<span class="string">"20"</span>/&gt;</div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">ehcache</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这里我们配置了cacheScheme策略，10秒过期(若激活，未激活过20秒过期)</p>
+<h4 id="Cache元素的属性"><a href="#Cache元素的属性" class="headerlink" title="Cache元素的属性"></a>Cache元素的属性</h4><p>name：缓存名称</p>
+<p>maxElementsInMemory：内存中最大缓存对象数</p>
+<p>maxElementsOnDisk：硬盘中最大缓存对象数，若是0表示无穷大</p>
+<p>eternal：true表示对象永不过期，此时会忽略timeToIdleSeconds和timeToLiveSeconds属性，默认为false</p>
+<p>overflowToDisk：true表示当内存缓存的对象数目达到了</p>
+<p>maxElementsInMemory界限后，会把溢出的对象写到硬盘缓存中。注意：如果缓存的对象要写入到硬盘中的话，则该对象必须实现了Serializable接口才行。</p>
+<p>diskSpoolBufferSizeMB：磁盘缓存区大小，默认为30MB。每个Cache都应该有自己的一个缓存区。</p>
+<p>diskPersistent：是否缓存虚拟机重启期数据，是否持久化磁盘缓存,当这个属性的值为true时,系统在初始化时会在磁盘中查找文件名 为cache名称,后缀名为index的文件，这个文件中存放了已经持久化在磁盘中的cache的index,找到后会把cache加载到内存，要想把 cache真正持久化到磁盘,写程序时注意执行net.sf.ehcache.Cache.put(Element element)后要调用flush()方法。</p>
+<p>diskExpiryThreadIntervalSeconds：磁盘失效线程运行时间间隔，默认为120秒</p>
+<p>timeToIdleSeconds： 设定允许对象处于空闲状态的最长时间，以秒为单位。当对象自从最近一次被访问后，如果处于空闲状态的时间超过了timeToIdleSeconds属性 值，这个对象就会过期，EHCache将把它从缓存中清空。只有当eternal属性为false，该属性才有效。如果该属性值为0，则表示对象可以无限 期地处于空闲状态</p>
+<p>timeToLiveSeconds：设定对象允许存在于缓存中的最长时间，以秒为单位。当对象自从被存放到缓存中后，如果处于缓存中的时间超过了 timeToLiveSeconds属性值，这个对象就会过期，EHCache将把它从缓存中清除。只有当eternal属性为false，该属性才有 效。如果该属性值为0，则表示对象可以无限期地存在于缓存中。timeToLiveSeconds必须大于timeToIdleSeconds属性，才有 意义</p>
+<p>memoryStoreEvictionPolicy：当达到maxElementsInMemory限制时，Ehcache将会根据指定的策略去清理内存。可选策略有：LRU（最近最少使用，默认策略）、FIFO（先进先出）、LFU（最少访问次数）。</p>
+<h3 id="EhCache集成到Spring"><a href="#EhCache集成到Spring" class="headerlink" title="EhCache集成到Spring"></a>EhCache集成到Spring</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></div><div class="line">    <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> </div><div class="line">    <span class="attr">xmlns:cache</span>=<span class="string">"http://www.springframework.org/schema/cache"</span></div><div class="line">    <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></div><div class="line">    <span class="attr">xmlns:aop</span>=<span class="string">"http://www.springframework.org/schema/aop"</span></div><div class="line">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"  </span></div><div class="line">           http://www.springframework.org/schema/beans  </div><div class="line">           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  </div><div class="line">           http://www.springframework.org/schema/aop  </div><div class="line">           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd</div><div class="line">           http://www.springframework.org/schema/context  </div><div class="line">           http://www.springframework.org/schema/context/spring-context-3.0.xsd</div><div class="line">           http://www.springframework.org/schema/cache </div><div class="line">           http://www.springframework.org/schema/cache/spring-cache-3.1.xsd"&gt;</div><div class="line">           </div><div class="line">    <span class="comment">&lt;!-- 自动扫描注解的bean --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.echemi.b2b.oceanfreight.ehcache.service"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">cache:annotation-driven</span> <span class="attr">cache-manager</span>=<span class="string">"cacheManager"</span> /&gt;</span>  </div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"cacheManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.cache.ehcache.EhCacheCacheManager"</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"cacheManager"</span> <span class="attr">ref</span>=<span class="string">"ehcache"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span>  </div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"ehcache"</span> <span class="attr">class</span>=<span class="string">"org.springframework.cache.ehcache.EhCacheManagerFactoryBean"</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"classpath:ehcache-setting.xml"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>​        cacheManager()方法创建了一个EhCacheCacheManager实例，这是通过<strong>传入EhCache的cacheManager实例实现的</strong>。这里比较诡异，让人感到迷惑，而且在导包的时候往往会容易导错，这是<strong>因为Spring和EhCache都定义了CacheManager类型</strong>。需要明确的是，<strong>EhCache的CacheManager要被注入到Spring的EhCacheCacheManager之中</strong>。</p>
+<h3 id="缓存代码实现层"><a href="#缓存代码实现层" class="headerlink" title="缓存代码实现层"></a>缓存代码实现层</h3><h4 id="接口层"><a href="#接口层" class="headerlink" title="接口层"></a>接口层</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import java.util.List;</div><div class="line"></div><div class="line">import com.echemi.b2b.oceanfreight.dao.po.OceanFreightAPI;</div><div class="line"></div><div class="line">/**</div><div class="line"> * @缓存服务</div><div class="line"> */</div><div class="line">public interface EhCacheService &#123;</div><div class="line">    //根据业务接口名称获取有效的API服务</div><div class="line">    public  List&lt;OceanFreightAPI&gt; getAPIListByBizName(String apiName);</div><div class="line">    </div><div class="line">   //测试缓存是否有效</div><div class="line">    public String testEhcache(String param);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="接口实现层"><a href="#接口实现层" class="headerlink" title="接口实现层"></a>接口实现层</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * @缓存服务实现类</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="meta">@Service</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EhCacheServiceImpl</span> <span class="keyword">implements</span> <span class="title">EhCacheService</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="comment">//log日志类</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(EhCacheServiceImpl.class);</div><div class="line">    </div><div class="line">    <span class="comment">//service数据库查询</span></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> DatabaseService service;</div><div class="line"></div><div class="line">    <span class="meta">@Cacheable</span>(value=<span class="string">"cacheScheme"</span>,key=<span class="string">"#param"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span>  List&lt;OceanFreightAPI&gt; <span class="title">getAPIListByBizName</span><span class="params">(String param)</span></span>&#123;</div><div class="line">        logger.info(<span class="string">"开始刷新缓存"</span>);</div><div class="line">        Map&lt;String, Object&gt; paramMap = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</div><div class="line">        paramMap.put(<span class="string">"api_biz_name"</span>, param);</div><div class="line">        List&lt;OceanFreightAPI&gt; apiList = <span class="keyword">new</span> ArrayList&lt;OceanFreightAPI&gt;();</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            apiList = service.selectApiListByBizName(paramMap);</div><div class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">            logger.info(<span class="string">"getAPIListByBizName缓存刷新异常&#123;&#125;"</span>, e);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> apiList;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="meta">@Cacheable</span>(value=<span class="string">"cacheScheme"</span>,key=<span class="string">"#param"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">testEhcache</span><span class="params">(String param)</span></span>&#123;</div><div class="line">        Long timestamp = System.currentTimeMillis();</div><div class="line">        <span class="keyword">return</span> timestamp.toString();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h3><h4 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.echemi.b2b.oceanfreight.common.Constant;</div><div class="line"><span class="keyword">import</span> com.echemi.b2b.oceanfreight.ehcache.service.EhCacheService;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EhCacheTestServiceTest</span> <span class="keyword">extends</span> <span class="title">SpringTestCase</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span>  </div><div class="line">    <span class="keyword">private</span> EhCacheService ehCacheService;</div><div class="line"></div><div class="line">   <span class="comment">// @Test  </span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testEhcache</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>&#123;  </div><div class="line">        System.out.println(<span class="string">"第一次调用testEhcache："</span> + ehCacheService.testEhcache(<span class="string">"testEhcache"</span>));</div><div class="line">        Thread.sleep(<span class="number">2000</span>);</div><div class="line">        System.out.println(<span class="string">"2秒之后调用testEhcache："</span> + ehCacheService.testEhcache(<span class="string">"testEhcache"</span>));</div><div class="line">        Thread.sleep(<span class="number">11000</span>);</div><div class="line">        System.out.println(<span class="string">"再过11秒之后调用testEhcache："</span> + ehCacheService.testEhcache(<span class="string">"testEhcache"</span>));</div><div class="line">    &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h4 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">第一次调用testEhcache：1504855353462    -----相同</div><div class="line">2秒之后调用testEhcache：1504855353462   -----相同</div><div class="line">再过11秒之后调用testEhcache：1504855366468 ------失效后重新查询</div></pre></td></tr></table></figure>
+<h3 id="问题汇总"><a href="#问题汇总" class="headerlink" title="问题汇总"></a>问题汇总</h3><h4 id="问题一"><a href="#问题一" class="headerlink" title="问题一"></a>问题一</h4><p>​     问题现象：java.lang.NoClassDefFoundError: org/hamcrest/SelfDescribing错误</p>
+<p>​     定位原因：单元测试缺少hamcrest的包</p>
+<p>​     解决方案：换一个低一点的版本就好了</p>
+<h4 id="问题二"><a href="#问题二" class="headerlink" title="问题二"></a>问题二</h4><p>​     问题现象：<a href="http://lib.csdn.net/base/java" target="_blank" rel="external">Java</a>.io.InvalidClassException错误</p>
+<p>​     定位原因：要实现缓存的实体必须要序列化</p>
+<p>​     解决方案：为缓存实体追加序列号：private static final long serialVersionUID = -6579533328390250520L</p>
+<h4 id="问题三"><a href="#问题三" class="headerlink" title="问题三"></a>问题三</h4><p>​     问题现象：nested exception is net.sf.ehcache.CacheException: Another unnamed CacheManager already exists in the same VM.</p>
+<p>​     定位原因：Bean重复实例化（类似循环依赖）</p>
+<p>​     解决方案：只实例化一次</p>
+<!--more-->
+                
+
+
+<p class="pink-link-context">
+    <a href="/2017/08/30/webService安全之WS-Security验证/" rel="next" title="webService安全之WS-Security验证">
+    下一篇：webService安全之WS-Security验证
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1"  data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="http://weibo.com/1956184117" target="_blank">
+                        <i class="fa fa-2x fa-weibo"></i>
+                    </a>
+                
+                    <a class="social-link" href="https://github.com/raytaylorlin" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="/atom.xml" target="_blank">
+                        <i class="fa fa-2x fa-rss"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+            <div class="col m8 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="http://raytaylorlin.com/" target="_blank">raytaylorism主题作者的技术博客</a>
+                
+                    <a class="social-link" href="https://github.com/raytaylorlin" target="_blank">Github地址（测试友情链接）</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('.menu-reading, .menu-about').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>
