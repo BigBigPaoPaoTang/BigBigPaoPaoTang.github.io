@@ -7,7 +7,7 @@
 
     
 
-    <title>归档：2014 | Just Do IT</title>
+    <title>guava集合处理 | Just Do IT</title>
     <meta name="author" content="Andy">
     
     <meta name="description" content="♥Follow your heart, Live better♥">
@@ -15,7 +15,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    
+    <meta property="og:title" content="guava集合处理"/>
     <meta property="og:site_name" content="Andy&#39;s Blob"/>
 
     
@@ -457,40 +457,122 @@
 
     <main>
         <div class="container main-container">
-    
-
-<nav class="page-nav hide-on-small-only">
+    <nav class="page-nav hide-on-small-only">
     <div class="nav-wrapper indigo">
-        <span class="breadcrumb">当前位置（归档）</span>
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/Java/">Java</a><a class="breadcrumb" href="/categories/Java/tool/">tool</a><a class="breadcrumb" href="/categories/Java/tool/Guava/">Guava</a>
+
+
         
 
         
     </div>
 </nav>
 
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>guava集合处理</h1>
+    
 
 
-    <ul class="collapsible mt-0" data-collapsible="accordion">
+            </div>
+            <time class="pink-link-context" datetime="2017-11-02T01:13:55.000Z"><a href="/2017/11/02/guava集合处理/">2017-11-02</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
         
+            <a href="/tags/Google-API/" class="chip pink lighten-1">Google API</a>
         
-            <li>
-                <div class="collapsible-header active">
-                    <i class="fa fa-archive"></i>2014
-                </div>
-                <div class="collapsible-body">
-                    <div class="collection">
-                        
-                            <a href="/2014/05/07/新的开始/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2014-05-07T10:44:12.000Z">2014-05-07</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                Typora For Markdown 语法
-                            </a>
-                        
-                    </div>
-                </div>
-            </li>
+            <a href="/tags/tool/" class="chip pink lighten-1">tool</a>
         
-    </ul>
+            <a href="/tags/collection/" class="chip pink lighten-1">collection</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#Guava集合处理"><span class="section table-of-contents-text">Guava集合处理</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#Filter"><span class="section table-of-contents-text">Filter</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#1-初始化一个Person类的List"><span class="section table-of-contents-text">1.初始化一个Person类的List</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-对List进行Filter操作"><span class="section table-of-contents-text">2.对List进行Filter操作</span></a></li></ol></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#Transform"><span class="section table-of-contents-text">Transform</span></a></li></ol></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <h1 id="Guava集合处理"><a href="#Guava集合处理" class="headerlink" title="Guava集合处理"></a>Guava集合处理</h1><p>​    Guava针对集合操作提供了更多的工具方法，如过滤器(filter)的功能，可以用来对collection 进行过滤，这些高质量的 API 可以使Java代码更加优雅，更加简洁，让你工作更加轻松愉悦。</p>
+<a id="more"></a>
+<h2 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h2><p>​    首先创建一个实体类Person，字段属性有：姓名,年龄,性别</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.guava.po;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@guava</span>实体类</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> String name;<span class="comment">//姓名</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> age;<span class="comment">//年龄</span></div><div class="line">    <span class="keyword">public</span> String sex;<span class="comment">//性别</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name, <span class="keyword">int</span> age, String sex)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">        <span class="keyword">this</span>.sex = sex;</div><div class="line">    &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h4 id="1-初始化一个Person类的List"><a href="#1-初始化一个Person类的List" class="headerlink" title="1.初始化一个Person类的List"></a>1.初始化一个Person类的List</h4><p>java原生写法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//原生java初始化</span></div><div class="line">   List&lt;Person&gt; orignList = <span class="keyword">new</span> ArrayList&lt;Person&gt;();</div><div class="line">   orignList.add(<span class="keyword">new</span> Person(<span class="string">"tim"</span>, <span class="number">18</span>, <span class="string">"M"</span>));</div><div class="line">   orignList.add(<span class="keyword">new</span> Person(<span class="string">"judy"</span>, <span class="number">18</span>, <span class="string">"F"</span>));</div><div class="line">   orignList.add(<span class="keyword">new</span> Person(<span class="string">"sunny"</span>, <span class="number">18</span>, <span class="string">"F"</span>));</div><div class="line">   orignList.add(<span class="keyword">new</span> Person(<span class="string">"evan"</span>, <span class="number">13</span>, <span class="string">"M"</span>));</div><div class="line">   orignList.add(<span class="keyword">null</span>);</div></pre></td></tr></table></figure>
+<p>guava实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//guava初始化</span></div><div class="line">List&lt;Person&gt; guavaList = Lists.newArrayList(</div><div class="line">                              <span class="keyword">new</span> Person(<span class="string">"tim"</span>, <span class="number">18</span>, <span class="string">"M"</span>),</div><div class="line">                              <span class="keyword">new</span> Person(<span class="string">"judy"</span>, <span class="number">18</span>, <span class="string">"F"</span>),</div><div class="line">                              <span class="keyword">new</span> Person(<span class="string">"renee"</span>, <span class="number">18</span>, <span class="string">"F"</span>),</div><div class="line">                              <span class="keyword">new</span> Person(<span class="string">"evan"</span>, <span class="number">13</span>, <span class="string">"M"</span>),</div><div class="line">                              <span class="keyword">null</span>);</div></pre></td></tr></table></figure>
+<p><strong>总结：使用guava创建泛型集合更加简洁明了</strong>  </p>
+<h4 id="2-对List进行Filter操作"><a href="#2-对List进行Filter操作" class="headerlink" title="2.对List进行Filter操作"></a>2.对List进行Filter操作</h4><p><strong><em>filter1: 去除List中的NULL</em></strong></p>
+<p>原生java实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">List&lt;Person&gt; cleanPeopleList = <span class="keyword">new</span> ArrayList&lt;Person&gt;();</div><div class="line"><span class="keyword">for</span> (Person person : orignList) &#123;</div><div class="line">    <span class="keyword">if</span> (person != <span class="keyword">null</span>) &#123;</div><div class="line">        cleanPeopleList.add(person);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>guava实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//定义过滤方法</span></div><div class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Predicate&lt;Person&gt; <span class="title">notNull</span><span class="params">()</span> </span>&#123;</div><div class="line">       <span class="keyword">return</span> <span class="keyword">new</span> Predicate&lt;Person&gt;() &#123;</div><div class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">apply</span><span class="params">(Person person)</span> </span>&#123;</div><div class="line">               <span class="keyword">return</span> person !=<span class="keyword">null</span> ;</div><div class="line">           &#125;</div><div class="line">       &#125;;</div><div class="line">   &#125;</div><div class="line">   <span class="comment">//单条件过滤</span></div><div class="line">   guavaList = Lists.newArrayList(Iterables.filter(guavaList, notNull()));</div></pre></td></tr></table></figure>
+<p><strong><em>filter2: 筛选年龄大于13的人</em></strong></p>
+<p>原生java实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//原生写法</span></div><div class="line">List&lt;Person&gt; oldPeople = <span class="keyword">new</span> ArrayList&lt;Person&gt;();</div><div class="line"><span class="keyword">for</span> (Person person : orignList) &#123;</div><div class="line">    <span class="keyword">if</span> (person!= <span class="keyword">null</span> &amp;&amp; person.getAge() &gt;= <span class="number">13</span>) &#123;<span class="comment">//条件耦合</span></div><div class="line">        oldPeople.add(person);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>guava实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//定义过滤器</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Predicate&lt;Person&gt; <span class="title">ageBiggerThan</span><span class="params">(<span class="keyword">final</span> <span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Predicate&lt;Person&gt;() &#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">apply</span><span class="params">(Person person)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> person.age &gt; <span class="number">13</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line"><span class="comment">//多条件过滤</span></div><div class="line">guavaList = Lists.newArrayList(Iterables.filter(guavaList, Predicates.and(notNull(), ageBiggerThan(<span class="number">13</span>))));</div></pre></td></tr></table></figure>
+<p><strong><em>filter3: 筛选年龄大于13的老男人</em></strong></p>
+<p>java实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">List&lt;Person&gt; oldMan = <span class="keyword">new</span> ArrayList&lt;Person&gt;();</div><div class="line"><span class="keyword">for</span> (Person person : orignList) &#123;</div><div class="line">    <span class="keyword">if</span> (person!= <span class="keyword">null</span> &amp;&amp; person.getAge() &gt;= <span class="number">13</span>&amp;&amp;person.getSex().equals(<span class="string">"M"</span>)) &#123;<span class="comment">//条件耦合</span></div><div class="line">        oldMan.add(person);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>guava实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">   <span class="comment">//追加过滤器</span></div><div class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Predicate&lt;Person&gt; <span class="title">sexBelong</span><span class="params">(<span class="keyword">final</span> String  sex)</span> </span>&#123;</div><div class="line">       <span class="keyword">return</span> <span class="keyword">new</span> Predicate&lt;Person&gt;() &#123;</div><div class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">apply</span><span class="params">(Person person)</span> </span>&#123;</div><div class="line">               <span class="keyword">return</span> person.getSex().equals(sex);</div><div class="line">           &#125;</div><div class="line">       &#125;;</div><div class="line">   &#125;</div><div class="line">   <span class="comment">//组合过滤</span></div><div class="line">guavaList = Lists.newArrayList(Iterables.filter(guavaList, Predicates.and(notNull(), 		ageBiggerThan(<span class="number">13</span>), sexBelong(<span class="string">"M"</span>))));</div></pre></td></tr></table></figure>
+<p><strong>总结：Predicate作为条件判断，guava给我们提供了and方法，用于对一组Predicate求与，如：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Iterables.filter(guavaList, Predicates.and(notNull(), ageBiggerThan(<span class="number">13</span>), sexBelong(<span class="string">"M"</span>)))</div></pre></td></tr></table></figure>
+<p><strong>直接作为filter的第二个参数。如果不熟悉函数式编程的人可能感觉有点怪异，但是习惯了就会觉得它的强大与简洁。 当然除了and与操作，guava还提供了or(求或)  not(求反)运算</strong></p>
+<h2 id="Transform"><a href="#Transform" class="headerlink" title="Transform"></a>Transform</h2><p>​    将数组中的元素映射为另一种元素的列表，这就是map pattern。</p>
+<p><strong><em>function1: 求People列表中的所有人名</em></strong></p>
+<p>原生java实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//原生java</span></div><div class="line">List&lt;String&gt; names = <span class="keyword">new</span> ArrayList&lt;String&gt;();</div><div class="line">   <span class="keyword">for</span> (Person person : orignList) &#123;</div><div class="line">       names.add(person.getName());</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>guava实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">   <span class="comment">//人名转换函数</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> Function&lt;Person, String&gt; nameFunction = <span class="keyword">new</span> Function&lt;Person, String&gt;() &#123;  </div><div class="line">       <span class="meta">@Override</span>  </div><div class="line">       <span class="function"><span class="keyword">public</span> String <span class="title">apply</span><span class="params">(Person person)</span> </span>&#123;  </div><div class="line">           <span class="keyword">return</span> person.getName();  </div><div class="line">       &#125;  </div><div class="line">   &#125;;  </div><div class="line">   <span class="comment">//转换集合</span></div><div class="line"> List&lt;String&gt; nameResult = Lists.newArrayList(Iterables.transform(guavaList, nameFunction));</div></pre></td></tr></table></figure>
+<p><strong><em>function2: 求People列表中的所有人名中是否包含关键字</em></strong></p>
+<p>原生java实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//原生java</span></div><div class="line">List&lt;String&gt; names = <span class="keyword">new</span> ArrayList&lt;String&gt;();</div><div class="line">   <span class="keyword">for</span> (Person person : orignList) &#123;</div><div class="line">       names.add(person.getName());</div><div class="line">   &#125;</div><div class="line">   List&lt;Boolean&gt; nameIncludes = <span class="keyword">new</span> ArrayList&lt;String&gt;();</div><div class="line">    <span class="keyword">for</span> (String name : nameIncludes) &#123;</div><div class="line">       names.equals(<span class="string">"tim"</span>);<span class="comment">//tim关键字</span></div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>guava实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//包含关键字函数</div><div class="line">private static Function&lt;String, Boolean&gt; nameFunction = new Function&lt;String, Boolean&gt;() &#123;  </div><div class="line">       @Override  </div><div class="line">       public Boolean apply(String personName) &#123;  </div><div class="line">           return ""tim".equals(personName);  </div><div class="line">       &#125;  </div><div class="line">   &#125;;  </div><div class="line">//函数组合使用</div><div class="line"> List&lt;Boolean&gt; nameIncludeResult = Lists.newArrayList(Iterables.transform(guavaList, Functions.compose(nameIncludeFunction,nameFunction)));</div></pre></td></tr></table></figure>
+<p><strong>注意：函数组合使用的时候，前一个函数依靠于第二个函数的结果输出，函数顺序需要注意</strong></p>
+<p><strong><em>Question：</em></strong>细心的小伙伴可能发现了，函数使用的时候List中是有null值存在的，那我们能不能filter和function一起使用呢，还是说必须先过滤，再调用函数，lucky的是，guava是支持过滤和转换混合使用的.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//混合使用</span></div><div class="line">List&lt;String&gt; result = FluentIterable.from(guavaList)  </div><div class="line">        .filter(notNull())  </div><div class="line">        .transform(nameFunction)  </div><div class="line">        .toList();</div><div class="line">printf(result);</div></pre></td></tr></table></figure>
+<p>​    <strong><em>FluentIterable</em></strong> 是guava集合类中常用的一个类，主要用于过滤、转换集合中的数据；FluentIterable 是一个抽象类，实现了Iterable接口，大多数方法都返回FluentIterable对象，这也是guava的思想之一</p>
+
+                
+
+
+<p class="pink-link-context">
+    <a href="/2017/09/15/Redis分布式锁初探/" rel="next" title="Redis分布式锁初探">
+    下一篇：Redis分布式锁初探
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
 
 
 </div>
